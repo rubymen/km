@@ -1,0 +1,7 @@
+/log/*.log
+/tmp
+/public/assets
+/public/uploads/*
+/config/database.yml
+.DS_STORE
+/test/*
