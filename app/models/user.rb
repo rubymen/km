@@ -1,4 +1,13 @@
 class User < ActiveRecord::Base
+  devise  :confirmable,
+          :database_authenticatable,
+          :lockable,
+          :recoverable,
+          :rememberable,
+          :timeoutable,
+          :trackable,
+          :validatable
+
   validates :birthdate,
             presence: true
 
