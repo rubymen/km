@@ -1,0 +1,21 @@
+fr:
+  activerecord:
+    attributes:
+      timestamps: &timestamps
+        created_at: 'Créé le'
+        updated_at: 'Mis à jour le'
+      user:
+        <<: *timestamps
+        birthdate: 'Date de naissance'
+        country_code: 'Pays'
+        current_password: 'Mot de passe actuel'
+        email: 'Adresse email'
+        firstname: 'Prénom'
+        lastname: 'Nom'
+        password: 'Mot de passe'
+        password_confirmation: 'Confirmation du mot de passe'
+        phone: 'Téléphone'
+        remember_me: 'Se souvenir de moi'
+        street: 'Adresse'
+        town: 'Ville'
+        type: 'Type'
