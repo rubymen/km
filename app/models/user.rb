@@ -5,8 +5,7 @@ class User < ActiveRecord::Base
           :recoverable,
           :rememberable,
           :timeoutable,
-          :trackable,
-          :validatable
+          :trackable
 
   validates :birthdate,
             presence: true
