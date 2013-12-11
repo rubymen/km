@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
+
   def index
     @users = User.all
   end
 
   def show
-    @user = User.friendly.find(params[:id])
   end
 
   def new
@@ -22,12 +23,9 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.friendly.find(params[:id])
   end
 
   def update
-    @user = User.friendly.find(params[:id])
-
     if @user.update_attributes(user_params)
       redirect_to @user, as: :user, flash: { success: 'Utilisateur modifie avec succes' }
     else
@@ -35,12 +33,16 @@ class UsersController < ApplicationController
     end
   end
 
-  def delete
-    User.find(params[:id]).destroy
+  def destroy
+    @user.destroy
     redirect_to new_user_path
   end
 
 private
+
+  def set_user
+    @user = User.friendly.find params[:id]
+  end
 
   def user_params
     params.require(:user).permit(:avatar, :birthdate, :country_code, :email, :firstname, :lastname, :password, :password_confirmation, :phone, :street, :town, :type)
