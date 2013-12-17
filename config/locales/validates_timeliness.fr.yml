@@ -1,0 +1,16 @@
+en:
+  errors:
+    messages:
+      after: 'doit être après%{restriction}'
+      before: 'doit être avant %{restriction}'
+      invalid_date: 'La date est invalide'
+      invalid_datetime: 'La date est invalide'
+      invalid_time: 'Le temps est invalide'
+      is_at: 'doit être à %{restriction}'
+      on_or_after: 'doit être sur ou après %{restriction}'
+      on_or_before: 'doit être sur ou avant %{restriction}'
+  validates_timeliness:
+    error_value_formats:
+      date: '%d/%m/%Y'
+      datetime: '%d/%m/%Y %H:%M:%S'
+      time: '%H:%M:%S'

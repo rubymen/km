@@ -201,7 +201,14 @@ fr:
       record_invalid: "La validation a échoué : %{errors}"
       url: "n'est pas une url valide"
       email: "n'est pas une adresse email valide"
-
+      invalid_date: "est invalide"
+      invalid_time: "est invalide"
+      invalid_datetime: "est invalide"
+      is_at: "doit être à %{restriction}"
+      before: "doit être avant %{restriction}"
+      on_or_before: "doit être sur ou avant %{restriction}"
+      after: "doit être après%{restriction}"
+      on_or_after: "doit être sur ou après %{restriction}"
     template: &errors_template
       header:
         one:   "Impossible d'enregistrer ce(tte) %{model} : 1 erreur"
