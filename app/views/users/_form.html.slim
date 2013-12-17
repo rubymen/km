@@ -1,0 +1,15 @@
+= simple_form_for @user, as: :user do |f|
+  = f.input :firstname
+  = f.input :lastname
+  = f.input :avatar
+  = f.input :email
+  = f.input :password
+  = f.input :password_confirmation
+  = f.input :street
+  = f.input :country_code, as: :country
+  = f.input :phone
+  = f.input :town
+  = f.input :birthdate
+  = f.input :type, collection: {'Admin' => 'Users::Admin', 'Contributor'=>'Users::Contributor', 'Member' => 'Users::Member'}
+  = f.input :remember_me, as: :boolean
+  = f.button :submit
