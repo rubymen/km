@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.0.0'
 
 gem 'rails', '4.0.0'
 
@@ -12,8 +13,8 @@ gem 'devise'
 gem 'devise-i18n-views',    '~> 0.2'
 gem 'friendly_id',          '~> 5.0.0'
 gem 'jquery-rails'
+gem 'mysql2'
 gem 'paper_trail',          '>= 3.0.0.rc2'
-gem 'pg'
 gem 'rmagick',              '~> 2.13.2'
 gem 'sass-rails',           '~> 4.0.0'
 gem 'simple_form',          '~> 3.0.1'
@@ -21,3 +22,7 @@ gem 'slim'
 gem 'uglifier',             '>= 1.3.0'
 gem 'unicorn'
 gem 'validates_timeliness', '~> 3.0'
+
+group :production do
+  gem 'pg'
+end
