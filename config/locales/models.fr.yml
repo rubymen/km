@@ -1,6 +1,9 @@
 fr:
   activerecord:
     models:
+      document:
+        one: 'Document'
+        other: 'Documents'
       user:
         one: 'Utilisateur'
         other: 'Utilisateurs'
