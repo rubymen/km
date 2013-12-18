@@ -4,6 +4,12 @@ fr:
       timestamps: &timestamps
         created_at: 'Créé le'
         updated_at: 'Mis à jour le'
+      document:
+        <<: *timestamps
+        content: 'Contenu'
+        description: 'Description'
+        state: 'État'
+        title: 'Titre'
       user:
         <<: *timestamps
         birthdate: 'Date de naissance'
