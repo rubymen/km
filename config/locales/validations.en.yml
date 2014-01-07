@@ -1,0 +1,5 @@
+en:
+  validation:
+    create: 'Your %{model} has been created'
+    update: 'Your %{model} has been updated'
+    destroy: 'Your %{model} has been destroyed'
