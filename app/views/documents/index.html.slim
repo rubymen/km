@@ -1,5 +1,9 @@
+= simple_form_for :elastic, url: documents_path, method: :get do |f|
+  = f.input :search, as: :string
+  = f.submit 'Search', class: 'btn btn-primary'
+
 - @documents.each do |document|
   p
     = document.title
 
-= will_paginate @documents, renderer: BootstrapPagination::Rails, class: "pagination pagination-centered"
+= will_paginate @documents, renderer: BootstrapPagination::Rails, class: 'pagination pagination-centered'
