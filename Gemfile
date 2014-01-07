@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.0.0'
+# ruby '2.0.0'
 
 gem 'rails', '4.0.0'
 
@@ -19,9 +19,11 @@ gem 'rmagick',              '~> 2.13.2'
 gem 'sass-rails',           '~> 4.0.0'
 gem 'simple_form',          '~> 3.0.1'
 gem 'slim'
+gem 'tire'
 gem 'uglifier',             '>= 1.3.0'
 gem 'unicorn'
 gem 'validates_timeliness', '~> 3.0'
+gem 'will_paginate-bootstrap'
 
 group :production do
   gem 'pg'

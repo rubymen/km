@@ -25,6 +25,7 @@ GEM
       multi_json (~> 1.3)
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
+    ansi (1.4.3)
     arel (4.0.1)
     atomic (1.1.14)
     bcrypt-ruby (3.1.2)
@@ -60,6 +61,7 @@ GEM
     execjs (2.0.2)
     friendly_id (5.0.1)
       activerecord (~> 4.0.0)
+    hashr (0.0.22)
     hike (1.2.3)
     i18n (0.6.5)
     jquery-rails (3.0.4)
@@ -106,6 +108,8 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.12.0)
     rake (10.1.0)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rmagick (2.13.2)
     sass (3.2.12)
     sass-rails (4.0.1)
@@ -140,6 +144,14 @@ GEM
     tilt (1.4.1)
     timeliness (0.3.7)
     tins (0.13.1)
+    tire (0.6.1)
+      activemodel (>= 3.0)
+      activesupport
+      ansi
+      hashr (~> 0.0.19)
+      multi_json (~> 1.3)
+      rake
+      rest-client (~> 1.6)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -155,6 +167,9 @@ GEM
       timeliness (~> 0.3.6)
     warden (1.2.3)
       rack (>= 1.0)
+    will_paginate (3.0.5)
+    will_paginate-bootstrap (1.0.0)
+      will_paginate (>= 3.0.3)
 
 PLATFORMS
   ruby
@@ -179,6 +194,8 @@ DEPENDENCIES
   sass-rails (~> 4.0.0)
   simple_form (~> 3.0.1)
   slim
+  tire
   uglifier (>= 1.3.0)
   unicorn
   validates_timeliness (~> 3.0)
+  will_paginate-bootstrap

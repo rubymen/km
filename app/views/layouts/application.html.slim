@@ -2,12 +2,20 @@ doctype html
 head
   title KM
   = stylesheet_link_tag 'application', media: 'all'
+  = stylesheet_link_tag 'http://cdn.oesmith.co.uk/morris-0.4.3.min.css', media: 'all'
+  = javascript_include_tag 'application'
   = yield(:head)
   = csrf_meta_tags
 body
-  - flash.each do |name, msg|
-    = content_tag :div, msg, class: 'alert'
-  = yield
 
-  = javascript_include_tag 'application'
+  #wrapper
+    = render 'layouts/header'
+
+    - flash.each do |name, msg|
+      = content_tag :div, msg, class: 'alert'
+
+    #page-wrapper
+      = yield
+
   = yield(:scripts)
+  = javascript_include_tag 'http://cdn.oesmith.co.uk/morris-0.4.3.min.js'
