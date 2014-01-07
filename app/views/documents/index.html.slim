@@ -1,5 +1,13 @@
-- @documents.each do |document|
-  p
-    = document.title
+- content_for :scripts
+  javascript:
+
+= simple_form_for :elastic, url: documents_path, remote: true, method: :get do |f|
+  = f.text_field :search
+  = f.submit "Search", class: "btn btn-primary"
+
+#elastic_view
+  - @documents.each do |document|
+    p
+      = document.title
 
 = will_paginate @documents, renderer: BootstrapPagination::Rails, class: "pagination pagination-centered"

@@ -1,5 +1,6 @@
 class DocumentsController < ApplicationController
   before_action :set_document, only: [:show, :edit, :update, :destroy]
+  respond_to :html, :json
 
   def index
     @documents = Document.search page: (params[:page] || 1), per_page: 20 do
