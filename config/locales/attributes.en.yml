@@ -4,6 +4,9 @@ en:
       timestamps: &timestamps
         created_at: 'Created at'
         updated_at: 'Updated at'
+      attachment:
+        <<: *timestamps
+        path: 'Path'
       document:
         <<: *timestamps
         content: 'Content'
