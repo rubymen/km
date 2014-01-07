@@ -3,8 +3,14 @@ class DocumentsController < ApplicationController
   respond_to :html, :json
 
   def index
+    search = params[:elastic].try(:[], :search)
+
     @documents = Document.search page: (params[:page] || 1), per_page: 20 do
-      query { all }
+      if search.blank?
+        query { all } if search.blank?
+      else
+        query { string "*#{search}*" }
+      end
     end
   end
 
