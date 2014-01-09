@@ -1,9 +1,33 @@
-= simple_form_for :elastic, url: documents_path, method: :get do |f|
-  = f.input :search, as: :string
-  = f.submit 'Search', class: 'btn btn-primary'
+.row
+  .col-lg-12
+    h1
+      | Documents&nbsp
+      small Tous les documents
+    ol.breadcrumb
+      li.active
+        i.fa.fa-dashboard
+        | Documents
+.row
+  .col-md-2
+    = simple_form_for :elastic, url: documents_path, method: :get do |f|
+      .input-group
+        = f.input :search, as: :string, label: false, class: 'form-control'
+        span.input-group-btn
+          = button_tag(type: 'submit', class: "btn btn-default") do
+            i.glyphicon.glyphicon-search
+      a.btn.btn-block.btn-default href= url_for(:only_path => false, :overwrite_params=>nil) Supprimer les filtres
+  .col-md-10
+    .table-responsive
+      table.table.table-bordered.table-hover.tablesorter
+        thead
+          tr
+            th
+              | Titre
+              i.fa.fa-sort
+        tbody
+          - @documents.each do |document|
+            tr
+              td
+                = document.title
 
-- @documents.each do |document|
-  p
-    = document.title
-
-= will_paginate @documents, renderer: BootstrapPagination::Rails, class: 'pagination pagination-centered'
+    = will_paginate @documents, renderer: BootstrapPagination::Rails, class: 'pagination pagination-centered'
