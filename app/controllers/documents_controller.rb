@@ -1,6 +1,5 @@
 class DocumentsController < ApplicationController
   before_action :set_document, only: [:show, :edit, :update, :destroy]
-  respond_to :html, :json
 
   def index
     search = params[:elastic].try(:[], :search)
@@ -10,6 +9,7 @@ class DocumentsController < ApplicationController
         query { all } if search.blank?
       else
         query { string "*#{search}*" }
+        sort { by :title, 'desc' }
       end
     end
   end
