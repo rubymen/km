@@ -2,8 +2,15 @@ class DocumentsController < ApplicationController
   before_action :set_document, only: [:show, :edit, :update, :destroy]
 
   def index
+    search = params[:elastic].try(:[], :search)
+
     @documents = Document.search page: (params[:page] || 1), per_page: 20 do
-      query { all }
+      if search.blank?
+        query { all } if search.blank?
+      else
+        query { string "*#{search}*" }
+        sort { by :title, 'desc' }
+      end
     end
   end
 
