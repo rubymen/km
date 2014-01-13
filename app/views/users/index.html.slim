@@ -16,14 +16,11 @@
       = f.input :search, as: :string, input_html: { value: params[:elastic].try(:[], :search) }, label: false, class: 'form-control'
       .input-group
         = f.input :alphabetically,  as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :alphabetically)) }
-        = f.input :most_recent,  as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :most_recent)) }
-        = f.input :most_popular,  as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :most_popular)) }
       .input-group
-        h3 duration
-        = f.input :always,  as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :always)) }
-        = f.input :this_month,  as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :this_month)) }
-        = f.input :this_week,  as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :this_week)) }
-        = f.input :today,  as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :today)) }
+        h3 Type
+        = f.input :member,  as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :member)) }
+        = f.input :contributor,  as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :contributor)) }
+        = f.input :administrator,  as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :administrator)) }
         = button_tag(type: 'submit', class: 'btn btn-block btn-default') do
           i.glyphicon.glyphicon-search
           '  Rechercher
@@ -35,9 +32,14 @@
           img src='http://placehold.it/50x50'
         .col-md-2
           h4.mtn
-            = user.firstname
-            | &nbsp;
-            = user.lastname
+            - if user.highlight
+              = raw user.highlight.firstname.try(:sentencize)
+              | &nbsp;
+              = raw user.highlight.lastname.try(:sentencize)
+            - else
+              = user.firstname
+              | &nbsp;
+              = user.lastname
           = link_to 'John Doe', request.path
         .col-md-6
           blockquote
@@ -45,4 +47,4 @@
         .col-md-3
           = link_to 'Consulter l\'utilisateur', user_path(user), class: 'btn btn-default btn-block btn-lg'
 
-      / = will_paginate @users, renderer: BootstrapPagination::Rails, class: 'pagination pagination-centered'
+      = will_paginate @users, renderer: BootstrapPagination::Rails, class: 'pagination pagination-centered'

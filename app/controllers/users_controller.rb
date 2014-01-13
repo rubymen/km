@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
+  require 'will_paginate/array'
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    @search     = User.search(params)
-    @users      = @search.results
-    @facets     = @search.facets
+    @search = User.search params
+    @users  = @search.results.paginate(page: params[:page], per_page: 20)
   end
 
   def show

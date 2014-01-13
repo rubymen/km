@@ -21,18 +21,22 @@ class Document < ActiveRecord::Base
   mapping do
     indexes :content,     type: :string
     indexes :description, type: :string
+    indexes :nb_comments, type: :integer
     indexes :title,       type: :string
     indexes :updated_at,  type: :date
   end
 
   def to_indexed_json
     {
-      content: self.content,
-      description: self.description,
-      title: self.title,
-      updated_at: self.updated_at,
+      content:      self.content,
+      description:  self.description,
+      nb_comments:  self.comments.count,
+      title:        self.title,
+      updated_at:   self.updated_at
     }.to_json
   end
+
+  has_many :comments, dependent: :destroy
 
   validates :description,
             presence: true
@@ -43,8 +47,8 @@ class Document < ActiveRecord::Base
   def self.search(params)
     facet_names = FACET_MAPPING.keys
 
-    tire.search(page: params[:page], per_page: 10) do
-      if params['elastic']
+    tire.search do
+      if params[:elastic]
         search = params['elastic']['search']
         query { string "*#{search}*" }
         highlight :title, :description, options: { tag: "<span class='highlight'>" }

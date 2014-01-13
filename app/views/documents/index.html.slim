@@ -41,12 +41,24 @@
         .col-md-2
           h4.mtn= document.title
           = link_to 'John Doe', request.path
+          br
+          a.no-text-decoration href="#"
+            .label.label-primary
+              | #Tag2
         .col-md-6
           blockquote
             - if document.highlight
               = raw document.highlight.description.try(:sentencize)
             - else
               = document.description
+          i.glyphicon.glyphicon-comment.color-blue &nbsp;
+          - unless document.nb_comments == 0
+            - if document.nb_comments == 1
+              = link_to 'Voir le commentaire', document_comments_path(document)
+            - else
+              = link_to "Voir les #{document.nb_comments} commentaires", document_comments_path(document)
+            | &nbsp;-&nbsp;
+          = link_to 'Ajouter un commentaire', new_document_comment_path(document)
         .col-md-3
           = link_to 'Consulter la fiche', document_path(document), class: 'btn btn-default btn-block btn-lg'
 

@@ -1,9 +1,10 @@
 class DocumentsController < ApplicationController
+  require 'will_paginate/array'
   before_action :set_document, only: [:show, :edit, :update, :destroy]
 
   def index
-    @search     = Document.search(params)
-    @documents  = @search.results
+    @search     = Document.search params
+    @documents  = @search.results.paginate(page: params[:page], per_page: 20)
   end
 
   def show

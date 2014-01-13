@@ -14,34 +14,37 @@ class User < ActiveRecord::Base
           :trackable
 
   FACET_MAPPING = {
-    'alphabetically' => { number: false },
-    'most_recent' => { number: false },
-    'most_popular' => { number: false },
-    'always' => { number: false },
-    'today' => { number: false },
-    'this_month' => { number: false },
-    'this_week' => { number: false },
+    'administrator'   => { number: false },
+    'alphabetically'  => { number: false },
+    'contributor'     => { number: false },
+    'member'          => { number: false },
   }
 
   mapping do
-    indexes :email,     type: :string
-    indexes :firstname, type: :string
-    indexes :lastname,  type: :string
-    indexes :phone,     type: :string
-    indexes :street,    type: :string
-    indexes :town,      type: :string
+    indexes :created_at,  type: :date
+    indexes :email,       type: :string
+    indexes :firstname,   type: :string
+    indexes :lastname,    type: :string
+    indexes :phone,       type: :string
+    indexes :street,      type: :string
+    indexes :town,        type: :string
+    indexes :type,        type: :string
   end
 
   def to_indexed_json
     {
-      email: self.email,
-      firstname: self.firstname,
-      lastname: self.lastname,
-      phone: self.phone,
-      street: self.street,
-      town: self.town,
+      email:      self.email,
+      firstname:  self.firstname,
+      lastname:   self.lastname,
+      phone:      self.phone,
+      street:     self.street,
+      town:       self.town,
+      type:       self.type
     }.to_json
+
   end
+
+  has_many :users
 
   validates :email,
             presence: true,
@@ -70,36 +73,36 @@ class User < ActiveRecord::Base
   def self.search(params)
     facet_names = FACET_MAPPING.keys
 
-    tire.search(page: params[:page], per_page: 10) do
-      if params['elastic']
-        query do
-          filtered do
-            query do
-              string '*'
+    tire.search do
+      if params[:elastic]
+        query_string = ''
+        search = params['elastic']['search']
+
+        facet_names.each do |facet_name|
+          if params['elastic'][facet_name].to_i == 1
+            if facet_name == 'alphabetically'
+              sort { by :firstname }
             end
-
-            facet_names.each do |facet_name|
-              if params['elastic'][facet_name].to_i == 1
-                # form_terms = params['elastic'][facet_name].delete_if(&:blank?)
-
-                # if form_terms.any?
-                #   filter(:terms, facet_name => params['elastic'][facet_name])
-                # end
-              end
+            if facet_name == 'administrator'
+              query_string = '*Admin* OR '
+            end
+            if facet_name == 'contributor'
+              query_string += '*Contributor* OR '
+            end
+            if facet_name == 'member'
+              query_string += '*Member* OR '
             end
           end
         end
-      end
 
-      facet_names.each do |facet_name|
-        facet(facet_name) do
-          terms(facet_name, all_terms: true, order: :term, size: 99_999)
+        if query_string.blank?
+          query { string "*#{search}*" }
+        else
+          query { string "*#{search}*" + " AND " + "(#{query_string[0..-5]}*)"}
         end
+
+        highlight :firstname, :lastname, options: { tag: "<span class='highlight'>" }
       end
-
-      sort { by :lastname, 'asc' }
-
-      raise to_curl if params['raise']
     end
   end
 end
