@@ -9,7 +9,7 @@ class DocumentsController < ApplicationController
         query { all } if search.blank?
       else
         query { string "*#{search}*" }
-        sort { by :title, 'desc' }
+        sort { by :title, 'asc' }
         highlight :title, :description, options: { tag: "<span class='highlight'>" }
       end
     end

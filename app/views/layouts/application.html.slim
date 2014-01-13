@@ -11,8 +11,20 @@ body
   #wrapper
     = render 'layouts/header'
 
-    - flash.each do |name, msg|
-      = content_tag :div, msg, class: 'alert'
+    - if flash[:warn] || flash[:alert]
+      .alert #{flash[:warn]} #{flash[:alert]}
+    - if flash[:notice] || flash[:success]
+      .alert.alert-success.alert-dismissable
+        button.close aria-hidden="true" data-dismiss="alert" type="button"
+        #{flash[:notice]} #{flash[:success]}
+    - if flash[:info]
+      .alert.alert-info.alert-dismissable
+        button.close aria-hidden="true" data-dismiss="alert" type="button"
+        #{flash[:info]}
+    - if flash[:error]
+      .alert.alert-error.alert-dismissable
+        button.close aria-hidden="true" data-dismiss="alert" type="button"
+        #{flash[:error]}
 
     #page-wrapper
       = yield

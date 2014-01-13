@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
           :timeoutable,
           :trackable
 
+  has_many :users
+
   validates :email,
             presence: true,
             uniqueness: true
