@@ -10,6 +10,7 @@ class DocumentsController < ApplicationController
       else
         query { string "*#{search}*" }
         sort { by :title, 'desc' }
+        highlight :title, :description, options: { tag: "<span class='highlight'>" }
       end
     end
   end

@@ -43,7 +43,10 @@
           = link_to 'John Doe', request.path
         .col-md-6
           blockquote
-            = document.description
+            - if document.highlight
+              = raw document.highlight.description.sentencize
+            - else
+              = document.description
         .col-md-3
           = link_to 'Consulter la fiche', document_path(document), class: 'btn btn-default btn-block btn-lg'
 
