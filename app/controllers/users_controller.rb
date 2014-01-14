@@ -2,7 +2,9 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    @users = User.all
+    @search     = User.search(params)
+    @users      = @search.results
+    @facets     = @search.facets
   end
 
   def show

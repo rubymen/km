@@ -1,3 +1,48 @@
-- @users.each do |user|
-  p
-    = user.firstname
+.row
+  .col-lg-12
+    h1
+      | Utilisateurs
+      | &nbsp;
+      small Tous les utilisateurs
+    ol.breadcrumb
+      li.active
+        i.fa.fa-dashboard
+        | Utilisateurs
+.row
+  .col-md-2
+    = simple_form_for :elastic, url: users_path, method: :get do |f|
+      h4 Recherche
+      .input-group
+      = f.input :search, as: :string, input_html: { value: params[:elastic].try(:[], :search) }, label: false, class: 'form-control'
+      .input-group
+        = f.input :alphabetically,  as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :alphabetically)) }
+        = f.input :most_recent,  as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :most_recent)) }
+        = f.input :most_popular,  as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :most_popular)) }
+      .input-group
+        h3 duration
+        = f.input :always,  as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :always)) }
+        = f.input :this_month,  as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :this_month)) }
+        = f.input :this_week,  as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :this_week)) }
+        = f.input :today,  as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :today)) }
+        = button_tag(type: 'submit', class: 'btn btn-block btn-default') do
+          i.glyphicon.glyphicon-search
+          '  Rechercher
+        = link_to 'Supprimer les filtres', request.path, class: 'btn btn-block btn-default'
+  .col-md-10
+    - @users.each do |user|
+      .row.user-item
+        .col-md-1
+          img src='http://placehold.it/50x50'
+        .col-md-2
+          h4.mtn
+            = user.firstname
+            | &nbsp;
+            = user.lastname
+          = link_to 'John Doe', request.path
+        .col-md-6
+          blockquote
+            = user.email
+        .col-md-3
+          = link_to 'Consulter l\'utilisateur', user_path(user), class: 'btn btn-default btn-block btn-lg'
+
+      / = will_paginate @users, renderer: BootstrapPagination::Rails, class: 'pagination pagination-centered'
