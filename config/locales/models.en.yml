@@ -1,6 +1,9 @@
 en:
   activerecord:
     models:
+      attachement:
+        one: 'Attachment'
+        other: 'Attachments'
       document:
         one: 'Document'
         other: 'Documents'

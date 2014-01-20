@@ -4,6 +4,9 @@ fr:
       timestamps: &timestamps
         created_at: 'Créé le'
         updated_at: 'Mis à jour le'
+      attachment:
+        <<: *timestamps
+        path: 'Lien'
       document:
         <<: *timestamps
         content: 'Contenu'

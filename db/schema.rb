@@ -13,6 +13,15 @@
 
 ActiveRecord::Schema.define(version: 20140107105729) do
 
+  create_table "attachments", force: true do |t|
+    t.string   "path"
+    t.integer  "document_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "attachments", ["document_id"], name: "index_attachments_on_document_id", using: :btree
+
   create_table "documents", force: true do |t|
     t.string   "state"
     t.string   "title"

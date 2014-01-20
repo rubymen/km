@@ -1,6 +1,9 @@
 fr:
   activerecord:
     models:
+      attachement:
+        one: 'Pièce jointe'
+        other: 'Pièces jointes'
       document:
         one: 'Document'
         other: 'Documents'

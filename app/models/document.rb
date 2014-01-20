@@ -3,6 +3,8 @@ class Document < ActiveRecord::Base
   friendly_id :title, use: :slugged
 
   has_paper_trail
+  has_many :attachments, dependent: :destroy
+  accepts_nested_attributes_for :attachments, reject_if: ->(a) { a[:path].blank? }, allow_destroy: true
 
   state_machine :state, initial: :wip do
     event :ask_for_review do
