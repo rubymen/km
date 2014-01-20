@@ -23,6 +23,8 @@ class Document < ActiveRecord::Base
     end
   end
 
+  has_many :tags
+
   validates :description,
             presence: true
 
