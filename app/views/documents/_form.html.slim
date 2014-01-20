@@ -1,5 +1,7 @@
-= simple_form_for @document do |f|
+= simple_nested_form_for @document do |f|
   = f.input :title
   = f.input :description
   = f.input :content
-  = f.button :submit
+  = f.fields_for :attachments
+  = f.link_to_add 'Ajouter une pièce jointe', :attachments
+  = f.submit 'Submit'

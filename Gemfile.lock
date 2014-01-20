@@ -74,6 +74,7 @@ GEM
     minitest (4.7.5)
     multi_json (1.8.2)
     mysql2 (0.3.14)
+    nested_form (0.3.2)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.7.0)
@@ -172,6 +173,7 @@ DEPENDENCIES
   friendly_id (~> 5.0.0)
   jquery-rails
   mysql2
+  nested_form
   paper_trail (>= 3.0.0.rc2)
   pg
   rails (= 4.0.0)
