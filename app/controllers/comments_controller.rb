@@ -11,7 +11,7 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = @document.comments.build comment_params
+    @comment      = @document.comments.build comment_params
     @comment.user = current_user
 
     if @comment.save
