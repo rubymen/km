@@ -5,7 +5,7 @@ gem 'rails', '4.0.0'
 
 gem 'bootstrap-sass-rails'
 gem 'cancan'
-gem 'capistrano', group: :development
+gem 'capistrano',           group: :development
 gem 'carrierwave'
 gem 'coffee-rails',         '~> 4.0.0'
 gem 'country_select'
@@ -18,12 +18,15 @@ gem 'nested_form'
 gem 'paper_trail',          '>= 3.0.0.rc2'
 gem 'rmagick',              '~> 2.13.2'
 gem 'sass-rails',           '~> 4.0.0'
+gem 'sentencify',           '0.4.0'
 gem 'simple_form',          '~> 3.0.1'
 gem 'slim'
 gem 'state_machine',        '1.2.0'
+gem 'tire'
 gem 'uglifier',             '>= 1.3.0'
 gem 'unicorn'
 gem 'validates_timeliness', '~> 3.0'
+gem 'will_paginate-bootstrap'
 
 group :production do
   gem 'pg'

@@ -1,0 +1,7 @@
+fr:
+  sentencify:
+    final_plural_connector: ' ... '
+    final_singular_connector: ' ... '
+    last_word_connector: ' ... '
+    two_words_connector: ' ... '
+    words_connector: ' ... '

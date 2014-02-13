@@ -1,8 +1,10 @@
 class DocumentsController < ApplicationController
+  require 'will_paginate/array'
   before_action :set_document, only: [:show, :edit, :update, :destroy]
 
   def index
-    @documents = Document.all
+    @search     = Document.search params
+    @documents  = @search.results.paginate(page: params[:page], per_page: 20)
   end
 
   def show
@@ -17,7 +19,7 @@ class DocumentsController < ApplicationController
     @document = Document.new document_params
 
     if @document.save
-      redirect_to @document, flash: { success: 'Document créé' }
+      redirect_to @document, flash: { success: t('validation.create', model: @document.class.model_name.human.downcase) }
     else
       render 'new'
     end
@@ -28,7 +30,7 @@ class DocumentsController < ApplicationController
 
   def update
     if @document.update document_params
-      redirect_to @document, flash: { success: 'Document mis à jour' }
+      redirect_to @document, flash: { success: t('validation.update', model: @document.class.model_name.human.downcase) }
     else
       render 'edit'
     end
@@ -36,7 +38,7 @@ class DocumentsController < ApplicationController
 
   def destroy
     @document.destroy
-    redirect_to new_document_path, flash: { success: 'Document supprimé' }
+    redirect_to new_document_path, flash: { success: t('validation.destroy', model: @document.class.model_name.human.downcase) }
   end
 
 private

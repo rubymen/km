@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140107105729) do
+ActiveRecord::Schema.define(version: 20140113095537) do
 
   create_table "attachments", force: true do |t|
     t.string   "path"
@@ -21,6 +21,20 @@ ActiveRecord::Schema.define(version: 20140107105729) do
   end
 
   add_index "attachments", ["document_id"], name: "index_attachments_on_document_id", using: :btree
+
+  create_table "comments", force: true do |t|
+    t.string   "title"
+    t.string   "content"
+    t.integer  "user_id"
+    t.integer  "comment_id"
+    t.integer  "document_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["comment_id"], name: "index_comments_on_comment_id", using: :btree
+  add_index "comments", ["document_id"], name: "index_comments_on_document_id", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "documents", force: true do |t|
     t.string   "state"

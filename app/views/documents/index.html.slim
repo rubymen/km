@@ -1,0 +1,65 @@
+.row
+  .col-lg-12
+    h1
+      | Documents
+      | &nbsp;
+      small Tous les documents
+    ol.breadcrumb
+      li.active
+        i.fa.fa-dashboard
+        | Documents
+.row
+  .col-md-2
+    = simple_form_for :elastic, url: documents_path, method: :get do |f|
+      h4 Recherche
+      .input-group
+      = f.input :search, as: :string, input_html: { value: params[:elastic].try(:[], :search) }, label: false, class: 'form-control'
+      = button_tag(type: 'submit', class: 'btn btn-block btn-default') do
+            i.glyphicon.glyphicon-search
+            '  Rechercher
+      = link_to 'Supprimer les filtres', request.path, class: 'btn btn-block btn-default'
+  .col-md-10.ptl
+    .col-md-6
+      = link_to 'Les plus populaires', request.path
+      | &nbsp; - &nbsp;
+      = link_to 'Les plus récents', request.path
+      | &nbsp; - &nbsp;
+      = link_to 'Alphabétique', request.path
+    .col-md-6.text-right
+      = link_to 'Toujours', request.path
+      | &nbsp; - &nbsp;
+      = link_to 'Ce mois', request.path
+      | &nbsp; - &nbsp;
+      = link_to 'Cette semaine', request.path
+      | &nbsp; - &nbsp;
+      = link_to 'Ajourd\'hui', request.path
+  .col-md-10
+    - @documents.each do |document|
+      .row.document-item
+        .col-md-1
+          img src='http://placehold.it/50x50'
+        .col-md-2
+          h4.mtn= document.title
+          = link_to 'John Doe', request.path
+          br
+          a.no-text-decoration href="#"
+            .label.label-primary
+              | #Tag2
+        .col-md-6
+          blockquote
+            - if document.highlight
+              = raw document.highlight.description.try(:sentencize)
+            - else
+              = document.description
+          i.glyphicon.glyphicon-comment.color-blue &nbsp;
+          - unless document.nb_comments == 0
+            - if document.nb_comments == 1
+              = link_to 'Voir le commentaire', document_comments_path(document)
+            - else
+              = link_to "Voir les #{document.nb_comments} commentaires", document_comments_path(document)
+            | &nbsp;-&nbsp;
+          = link_to 'Ajouter un commentaire', new_document_comment_path(document)
+        .col-md-3
+          = link_to 'Consulter la fiche', document_path(document), class: 'btn btn-default btn-block btn-lg'
+
+    / = will_paginate @documents, renderer: BootstrapPagination::Rails, class: 'pagination pagination-centered'
