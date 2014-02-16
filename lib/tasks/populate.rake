@@ -22,7 +22,7 @@ namespace :db do
                                 lastname:               'rotubirtnoc',
                                 password:               'adminadmin',
                                 password_confirmation:  'adminadmin',
-                                phone:                  '606060606',
+                                phone:                  '0606060606',
                                 street:                 '4, rue Jules Guesdes',
                                 town:                   'Lille',
                                 type:                   'Users::Contributor')
@@ -34,7 +34,7 @@ namespace :db do
                           lastname:               'rebmem',
                           password:               'adminadmin',
                           password_confirmation:  'adminadmin',
-                          phone:                  '606060606',
+                          phone:                  '0606060606',
                           street:                 '4, rue Jules Guesdes',
                           town:                   'Lille',
                           type:                   'Users::Member')

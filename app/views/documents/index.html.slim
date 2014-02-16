@@ -14,6 +14,12 @@
       h4 Recherche
       .input-group
       = f.input :search, as: :string, input_html: { value: params[:elastic].try(:[], :search) }, label: false, class: 'form-control'
+      = f.input :alphabetically,  as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :alphabetically)) }
+      = f.input :most_popular,  as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :most_popular)) }
+      = f.input :most_recent,  as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :most_recent)) }
+      = f.input :this_month,  as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :this_month)) }
+      = f.input :this_week,  as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :this_week)) }
+      = f.input :today,  as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :today)) }
       = button_tag(type: 'submit', class: 'btn btn-block btn-default') do
             i.glyphicon.glyphicon-search
             '  Rechercher
