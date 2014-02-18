@@ -45,6 +45,7 @@ class User < ActiveRecord::Base
   end
 
   has_many :users
+  has_and_belongs_to_many :documents
 
   validates :email,
             presence: true,

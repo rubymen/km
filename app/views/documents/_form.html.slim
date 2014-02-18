@@ -1,4 +1,5 @@
 = simple_nested_form_for @document do |f|
+  = f.hidden_field :users, value: @document.users
   = f.input :title
   = f.input :description
   = f.input :content
