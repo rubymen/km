@@ -7,6 +7,11 @@ fr:
       attachment:
         <<: *timestamps
         path: 'Lien'
+      comment:
+        <<: *timestamps
+        content: 'Contenu'
+        private: 'Privé'
+        title: 'Titre'
       document:
         <<: *timestamps
         content: 'Contenu'

@@ -2,4 +2,5 @@
   = f.hidden_field :comment_id, value: params[:comment_id] || @comment.comment.try(:id)
   = f.input :title
   = f.input :content
+  = f.input :private
   = f.button :submit
