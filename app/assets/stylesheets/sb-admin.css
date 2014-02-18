@@ -10,8 +10,21 @@ For more info and more free Bootstrap 3 HTML themes, visit http://startbootstrap
 
 /* Global Styles */
 
+@font-face {
+  font-family: 'Open Sans Light';
+  src: url('//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Light-webfont.eot');
+  src: url('//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Light-webfont.eot?#iefix') format('embedded-opentype'), url('//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Light-webfont.woff') format('woff'), url('//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Light-webfont.ttf') format('truetype'), url('//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Light-webfont.svg#OpenSansLight') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   margin-top: 50px;
+  font-family: "Open Sans Light";
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: "Open Sans Light";
 }
 
 #wrapper {
@@ -21,6 +34,23 @@ body {
 #page-wrapper {
   width: 100%;
   padding: 5px 15px;
+}
+
+.center {
+  text-align: center
+}
+
+.ptxl {
+  padding-top: 80px
+}
+
+.navbar-inverse {
+  background-color: #f3f3f3;
+  background-image: -moz-linear-gradient(#f9f9f9, #f3f3f3);
+  background-image: -webkit-linear-gradient(#f9f9f9, #f3f3f3);
+  background-image: linear-gradient(#f9f9f9, #f3f3f3);
+  background-repeat: repeat-x;
+  border-color: #cccccc;
 }
 
 /* Nav Messages */
@@ -83,6 +113,11 @@ table.tablesorter thead tr th:hover {
   height: 100%;
 }
 
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+  color: white;
+  background-color: #ccc;
+}
+
 /* Edit Below to Customize Widths > 768px */
 @media (min-width:768px) {
 
@@ -90,15 +125,25 @@ table.tablesorter thead tr th:hover {
 
   #wrapper {
   padding-left: 225px;
+  margin-top: 50px;
+  }
+
+  #wrapper-login {
+  padding-right: 225px;
   }
 
   #page-wrapper {
   padding: 15px 25px;
   }
 
+  .logo-main {
+    margin-top: 40px;
+    width: 400px
+  }
+
   /* Side Nav */
 
-  .side-nav {
+  .side-nav>ul {
   margin-left: -225px;
   left: 225px;
   width: 225px;
@@ -107,13 +152,15 @@ table.tablesorter thead tr th:hover {
   height: 100%;
   border-radius: 0;
   border: none;
-  background-color: #222222;
+  background-color: #f3f3f3;
+  background-repeat: repeat-x;
+  border-right: 1px solid #cccccc;
   overflow-y: auto;
   }
 
   /* Bootstrap Default Overrides - Customized Dropdowns for the Side Nav */
 
-  .side-nav>li.dropdown>ul.dropdown-menu {
+  .side-nav>ul>li.dropdown>ul.dropdown-menu {
   position: relative;
   min-width: 225px;
   margin: 0;
@@ -125,25 +172,25 @@ table.tablesorter thead tr th:hover {
   -webkit-box-shadow: none;
   }
 
-  .side-nav>li.dropdown>ul.dropdown-menu>li>a {
+  .side-nav>ul>li.dropdown>ul.dropdown-menu>li>a {
   color: #999999;
   padding: 15px 15px 15px 25px;
   }
 
-  .side-nav>li.dropdown>ul.dropdown-menu>li>a:hover,
-  .side-nav>li.dropdown>ul.dropdown-menu>li>a.active,
-  .side-nav>li.dropdown>ul.dropdown-menu>li>a:focus {
+  .side-nav>ul>li.dropdown>ul.dropdown-menu>li>a:hover,
+  .side-nav>ul>li.dropdown>ul.dropdown-menu>li>a.active,
+  .side-nav>ul>li.dropdown>ul.dropdown-menu>li>a:focus {
   color: #fff;
-  background-color: #080808;
+  background-color: #C3C3C3;
   }
 
-  .side-nav>li>a {
+  .side-nav>ul>li>a {
   width: 225px;
   }
 
   .navbar-inverse .navbar-nav>li>a:hover,
   .navbar-inverse .navbar-nav>li>a:focus {
-  background-color: #080808;
+  background-color: #C3C3C3;
   }
 
   /* Nav Messages */
@@ -156,4 +203,15 @@ table.tablesorter thead tr th:hover {
   white-space: normal;
   }
 
+}
+
+@media (max-width:768px) {
+  .logo-main {
+    margin-top: 0;
+    width: 100%
+  }
+
+  .ptxl {
+    padding-top: 10px
+  }
 }

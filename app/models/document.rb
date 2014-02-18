@@ -8,6 +8,7 @@ class Document < ActiveRecord::Base
   has_paper_trail
   has_many :attachments, dependent: :destroy
   has_and_belongs_to_many :users
+  has_many :tags
   accepts_nested_attributes_for :attachments, reject_if: ->(a) { a[:path].blank? }, allow_destroy: true
 
   state_machine :state, initial: :wip do
@@ -29,8 +30,6 @@ class Document < ActiveRecord::Base
     end
   end
 
-  has_many :tags
-
   FACET_MAPPING = {
     'alphabetically'  => { number: false },
     'always'          => { number: false },
@@ -46,6 +45,7 @@ class Document < ActiveRecord::Base
     indexes :content,     type: :string
     indexes :description, type: :string
     indexes :nb_comments, type: :integer
+    indexes :tags,        type: :string
     indexes :title,       type: :string
     indexes :updated_at,  type: :date
   end
@@ -55,6 +55,7 @@ class Document < ActiveRecord::Base
       content:      self.content,
       description:  self.description,
       nb_comments:  self.comments.count,
+      tags:         self.tags.map(&:title).join(' '),
       title:        self.title,
       updated_at:   self.updated_at
     }.to_json
