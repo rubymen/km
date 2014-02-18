@@ -11,7 +11,7 @@
 .row
   .col-md-2
     = simple_form_for :elastic, url: documents_path, method: :get do |f|
-      h4 Recherche
+      h3 Recherche
       .input-group
       = f.input :search, as: :string, input_html: { value: params[:elastic].try(:[], :search) }, label: false, class: 'form-control'
       = f.input :alphabetically,  as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :alphabetically)) }
@@ -25,21 +25,6 @@
             '  Rechercher
       = link_to 'Supprimer les filtres', request.path, class: 'btn btn-block btn-default'
   .col-md-10.ptl
-    .col-md-6
-      = link_to 'Les plus populaires', request.path
-      | &nbsp; - &nbsp;
-      = link_to 'Les plus récents', request.path
-      | &nbsp; - &nbsp;
-      = link_to 'Alphabétique', request.path
-    .col-md-6.text-right
-      = link_to 'Toujours', request.path
-      | &nbsp; - &nbsp;
-      = link_to 'Ce mois', request.path
-      | &nbsp; - &nbsp;
-      = link_to 'Cette semaine', request.path
-      | &nbsp; - &nbsp;
-      = link_to 'Ajourd\'hui', request.path
-  .col-md-10
     - @documents.each do |document|
       .row.document-item
         .col-md-1
@@ -48,9 +33,10 @@
           h4.mtn= document.title
           = link_to 'John Doe', request.path
           br
-          a.no-text-decoration href="#"
+          - document.tags.split(' ').each do |tag|
             .label.label-primary
-              | #Tag2
+              = tag
+            | &nbsp;
         .col-md-6
           blockquote
             - if document.highlight

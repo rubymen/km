@@ -1,11 +1,14 @@
-h2= t('.sign_in')
+.row.ptxl
+  .col-lg-6.center
+    = image_tag 'milicon.png', alt: 'Logo de Milicon', class: 'logo-main'
+  .col-lg-6
+    h3.center Vos fichiers mis en forme,</br> centralisés et à porté de main
+    = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      .form-inputs
+        = f.input :email
+        = f.input :password
+        = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
+      .form-actions
+        = f.submit t('.sign_in'), class: 'btn btn-success'
 
-= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  .form-inputs
-    = f.input :email
-    = f.input :password
-    = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
-  .form-actions
-    = f.submit t('.sign_in'), class: 'btn btn-success'
-
-= render 'devise/shared/links'
+    = render 'devise/shared/links'
