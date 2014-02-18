@@ -16,7 +16,8 @@ class DocumentsController < ApplicationController
   end
 
   def create
-    @document = Document.new document_params
+    @document = current_user.documents.build document_params
+    @document.users << current_user
 
     if @document.save
       redirect_to @document, flash: { success: t('validation.create', model: @document.class.model_name.human.downcase) }
@@ -26,6 +27,9 @@ class DocumentsController < ApplicationController
   end
 
   def edit
+    unless @document.users.include? current_user
+      @document.users << current_user
+    end
   end
 
   def update
@@ -48,6 +52,6 @@ private
   end
 
   def document_params
-    params.require(:document).permit(:content, :description, :title, attachments_attributes: :path)
+    params.require(:document).permit(:content, :description, :title, attachments_attributes: :path, user_ids: [])
   end
 end

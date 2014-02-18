@@ -7,6 +7,7 @@ class Document < ActiveRecord::Base
 
   has_paper_trail
   has_many :attachments, dependent: :destroy
+  has_and_belongs_to_many :users
   accepts_nested_attributes_for :attachments, reject_if: ->(a) { a[:path].blank? }, allow_destroy: true
 
   state_machine :state, initial: :wip do
