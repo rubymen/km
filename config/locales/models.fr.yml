@@ -7,6 +7,9 @@ fr:
       document:
         one: 'Document'
         other: 'Documents'
+      tag:
+        one: 'Tag'
+        other: 'Tags'
       user:
         one: 'Utilisateur'
         other: 'Utilisateurs'

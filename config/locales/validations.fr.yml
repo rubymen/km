@@ -1,5 +1,6 @@
 fr:
   validation:
     create: 'Votre %{model} a bien été crée'
-    update: 'Votre %{model} a bien été mis à jour'
     destroy: 'Votre %{model} a bien été supprimé'
+    reify: 'Votre %{model} a bien changé de version'
+    update: 'Votre %{model} a bien été mis à jour'

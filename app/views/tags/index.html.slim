@@ -1,0 +1,32 @@
+.row
+  .col-md-12
+    h1
+      | Tags
+      | &nbsp;
+      small Tous les tags
+    ol.breadcrumb
+      li.active
+        i.fa.fa-dashboard
+        | Tags
+
+.row
+  .col-md-2
+    = link_to 'Créer un tag', new_tag_path, class: 'btn btn-block btn-success col-md-2'
+
+.row.mtl
+  .col-md-6
+    table.table.table-bordered
+      thead
+        tr
+          th Titre
+      tbody
+        - @tags.each do |tag|
+          tr
+            td
+              a href=(tag_path(tag))
+                span.badge.mrl
+                  = tag.documents.count
+                = tag.title
+  .col-md-6
+    = javascript_include_tag '//www.google.com/jsapi', 'chartkick'
+    = pie_chart DocumentsTags.all.group('tag').count

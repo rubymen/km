@@ -4,6 +4,7 @@ Km::Application.routes.draw do
 
   resources :documents do
     get 'autocomplete', on: :collection
+    get 'change_version', on: :member
     resources :comments, on: :member, except: [:show, :edit, :update] do
       resources :comments, on: :member, only: [:new, :create]
     end

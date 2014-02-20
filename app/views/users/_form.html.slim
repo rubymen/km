@@ -12,4 +12,4 @@
   = f.input :birthdate
   = f.input :type, collection: {'Admin' => 'Users::Admin', 'Contributor'=>'Users::Contributor', 'Member' => 'Users::Member'}
   = f.input :remember_me, as: :boolean
-  = f.button :submit
+  = f.button :submit, 'Créer un utilisateur', class: 'btn-success mtl'

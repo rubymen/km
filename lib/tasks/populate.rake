@@ -72,5 +72,15 @@ namespace :db do
                                 content:      'J\'adore ce document ! Merci beaucoup !',
                                 document_id:  document1.id,
                                 user_id:      member.id)
+
+    tag1 = Tag.create!(title: 'Javascript')
+
+    tag2 = Tag.create!(title: 'HTML')
+
+    tag3 = Tag.create!(title: 'PHP')
+
+    tag4 = Tag.create!(title: 'CSS')
+
+    tag5 = Tag.create!(title: 'Ruby on Rails')
   end
 end
