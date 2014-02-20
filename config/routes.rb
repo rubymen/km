@@ -2,7 +2,6 @@ Km::Application.routes.draw do
   devise_for :users
   root to: 'documents#index'
 
-  resources :attachments
   resources :documents do
     get 'autocomplete', on: :collection
     resources :comments, on: :member, except: [:show, :edit, :update] do

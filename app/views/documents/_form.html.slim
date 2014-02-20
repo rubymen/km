@@ -1,8 +1,11 @@
-= simple_nested_form_for @document do |f|
+= simple_form_for @document do |f|
   = f.hidden_field :users, value: @document.users
   = f.input :title
   = f.input :description
   = f.input :content
-  = f.fields_for :attachments
-  = f.link_to_add 'Ajouter une pièce jointe', :attachments
-  = f.submit 'Submit'
+  #attachments
+    = f.simple_fields_for :attachments do |attachment|
+      = render 'attachment_fields', f: attachment
+    .links
+      = link_to_add_association 'Ajouter une pièce jointe', f, :attachments
+  = f.submit

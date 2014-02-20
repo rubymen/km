@@ -14,7 +14,6 @@ class DocumentsController < ApplicationController
 
   def new
     @document = Document.new
-    attachment = @document.attachments.build
   end
 
   def create
@@ -54,6 +53,6 @@ private
   end
 
   def document_params
-    params.require(:document).permit(:content, :description, :title, attachments_attributes: :path, user_ids: [])
+    params.require(:document).permit(:content, :description, :title, attachments_attributes: [:id, :path, :_destroy], user_ids: [])
   end
 end
