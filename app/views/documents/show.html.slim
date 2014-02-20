@@ -1,3 +1,11 @@
 h1= @document.title
 
-= link_to 'Supprimer', @document, method: :delete, confirm: 'Etes-vous sûr ?'
+= link_to 'Editer', edit_document_path(@document), class: 'btn btn-default'
+= link_to 'Supprimer', @document, method: :delete, class: 'btn btn-default', confirm: 'Etes-vous sûr ?'
+
+.list-group
+  - @document.versions.reverse.each do |document|
+    - if document = document.reify
+      a.list-group-item href="#"
+        h4.list-group-item-heading= document.title
+        p.list-group-item-text= document.description

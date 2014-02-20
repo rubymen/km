@@ -6,8 +6,14 @@
 cd config && cp database.yml{.sample,} && cd -
 ```
 
-## Populate app
+## Regenerate database
 
 ```rb
-rake db:populate
+rake db:drop; rake db:create; rake db:migrate; rake db:populate
+```
+
+## Rebuild ElasticSearch
+
+```sh
+rake searchkick:reindex CLASS=Document; rake searchkick:reindex CLASS=User
 ```

@@ -1,10 +1,12 @@
 class DocumentsController < ApplicationController
-  require 'will_paginate/array'
   before_action :set_document, only: [:show, :edit, :update, :destroy]
 
+  def autocomplete
+    render json: Document.search(params[:query], fields: [{ title: :text_start }], limit: 10)
+  end
+
   def index
-    @search     = Document.search params
-    @documents  = @search.results.paginate(page: params[:page], per_page: 20)
+    @documents = Document.to_search params
   end
 
   def show
