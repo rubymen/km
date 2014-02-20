@@ -1,11 +1,5 @@
 class User < ActiveRecord::Base
   extend FriendlyId
-  include Tire::Model::Search
-  include Tire::Model::Callbacks
-
-  friendly_id :name, use: :slugged
-
-  mount_uploader :avatar, AvatarUploader
 
   devise  :database_authenticatable,
           :recoverable,
@@ -13,38 +7,12 @@ class User < ActiveRecord::Base
           :timeoutable,
           :trackable
 
-  FACET_MAPPING = {
-    'administrator'   => { number: false },
-    'alphabetically'  => { number: false },
-    'contributor'     => { number: false },
-    'member'          => { number: false },
-  }
+  friendly_id :name, use: :slugged
 
-  mapping do
-    indexes :created_at,  type: :date
-    indexes :email,       type: :string
-    indexes :firstname,   type: :string
-    indexes :lastname,    type: :string
-    indexes :phone,       type: :string
-    indexes :street,      type: :string
-    indexes :town,        type: :string
-    indexes :type,        type: :string
-  end
+  mount_uploader :avatar, AvatarUploader
 
-  def to_indexed_json
-    {
-      email:      self.email,
-      firstname:  self.firstname,
-      lastname:   self.lastname,
-      phone:      self.phone,
-      street:     self.street,
-      town:       self.town,
-      type:       self.type
-    }.to_json
+  searchkick language: 'French', text_start: [:lastname]
 
-  end
-
-  has_many :users
   has_and_belongs_to_many :documents
 
   validates :email,
@@ -75,39 +43,40 @@ class User < ActiveRecord::Base
     "#{firstname} #{lastname}"
   end
 
-  def self.search(params)
-    facet_names = FACET_MAPPING.keys
+  def search_data
+    {
+      email:      email,
+      firstname:  firstname,
+      lastname:   lastname,
+      name:       name,
+      phone:      phone,
+      street:     street,
+      town:       town,
+      type:       type,
+      updated_at: updated_at
+    }
+  end
 
-    tire.search do
-      if params[:elastic]
-        query_string = ''
-        search = params['elastic']['search']
+  def self.to_search(params)
+    params[:elastic].delete_if { |k, v| v.blank? } if params[:elastic]
 
-        facet_names.each do |facet_name|
-          if params['elastic'][facet_name].to_i == 1
-            if facet_name == 'alphabetically'
-              sort { by :firstname }
-            end
-            if facet_name == 'administrator'
-              query_string = '*Admin* OR '
-            end
-            if facet_name == 'contributor'
-              query_string += '*Contributor* OR '
-            end
-            if facet_name == 'member'
-              query_string += '*Member* OR '
-            end
-          end
-        end
+    custom_search = {
+      fields: [:firstname, :lastname],
+      highlight: { tag: "<span class='highlight'>" },
+      misspellings: { distance: 2 },
+      page: params[:page],
+      partial: true,
+      per_page: 10,
+      order: {},
+      where: {}
+    }
 
-        if query_string.blank?
-          query { string "*#{search}*" }
-        else
-          query { string "*#{search}*" + " AND " + "(#{query_string[0..-5]}*)"}
-        end
+    custom_search[:order].merge!({ name: :asc }) if params[:elastic].try(:[], :alphabetically).to_i == 1
 
-        highlight :firstname, :lastname, options: { tag: "<span class='highlight'>" }
-      end
-    end
+    custom_search[:where].merge!({ type: ['Users::Admin'] }) if params[:elastic].try(:[], :administrator).to_i == 1
+    custom_search[:where].merge!({ type: ['Users::Contributor'] }) if params[:elastic].try(:[], :contributor).to_i == 1
+    custom_search[:where].merge!({ type: ['Users::Member'] }) if params[:elastic].try(:[], :member).to_i == 1
+
+    self.search (params[:elastic].try(:[], :search) || '*'), custom_search
   end
 end

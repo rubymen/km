@@ -1,15 +1,11 @@
 class Document < ActiveRecord::Base
   extend FriendlyId
-  include Tire::Model::Search
-  include Tire::Model::Callbacks
 
   friendly_id :title, use: :slugged
 
   has_paper_trail
-  has_many :attachments, dependent: :destroy
-  has_and_belongs_to_many :users
-  has_many :tags
-  accepts_nested_attributes_for :attachments, reject_if: ->(a) { a[:path].blank? }, allow_destroy: true
+
+  searchkick language: 'French', text_start: [:title]
 
   state_machine :state, initial: :wip do
     event :ask_for_review do
@@ -30,38 +26,12 @@ class Document < ActiveRecord::Base
     end
   end
 
-  FACET_MAPPING = {
-    'alphabetically'  => { number: false },
-    'always'          => { number: false },
-    'most_popular'    => { number: false },
-    'most_recent'     => { number: true },
-    'search'          => { number: false },
-    'this_month'      => { number: false },
-    'this_week'       => { number: false },
-    'today'           => { number: false },
-  }
-
-  mapping do
-    indexes :content,     type: :string
-    indexes :description, type: :string
-    indexes :nb_comments, type: :integer
-    indexes :tags,        type: :string
-    indexes :title,       type: :string
-    indexes :updated_at,  type: :date
-  end
-
-  def to_indexed_json
-    {
-      content:      self.content,
-      description:  self.description,
-      nb_comments:  self.comments.count,
-      tags:         self.tags.map(&:title).join(' '),
-      title:        self.title,
-      updated_at:   self.updated_at
-    }.to_json
-  end
-
+  has_and_belongs_to_many :users
+  has_many :attachments, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :tags
+
+  accepts_nested_attributes_for :attachments, reject_if: ->(a) { a[:path].blank? }, allow_destroy: true
 
   validates :description,
             presence: true
@@ -69,27 +39,35 @@ class Document < ActiveRecord::Base
   validates :title,
             presence: true
 
-  def self.search(params)
-    facet_names = FACET_MAPPING.keys
+  def search_data
+    {
+      content:      content,
+      description:  description,
+      title:        title,
+      updated_at:   updated_at
+    }
+  end
 
-    tire.search do
-      if params[:elastic]
-        search = params['elastic']['search']
-        query { string "*#{search}*" }
-        highlight :title, :description, options: { tag: "<span class='highlight'>" }
+  def self.to_search(params)
+    params[:elastic].delete_if { |k, v| v.blank? } if params[:elastic]
 
-        facet_names.each do |facet_name|
-          if params['elastic'][facet_name].to_i == 1
-            if facet_name == 'alphabetically' then sort { by :title }
-            elsif facet_name == 'most_popular' then # complete
-            elsif facet_name == 'most_recent' then sort { by :updated_at }
-            elsif facet_name == 'this_month' then filter :range, updated_at: { lte: Time.now, gte: (Time.now - 1.month) }
-            elsif facet_name == 'this_week' then filter :range, updated_at: { lte: Time.now, gte: (Time.now - 1.week) }
-            elsif facet_name == 'today' then filter :range, updated_at: { lte: Time.now.beginning_of_day, gte: (Time.now.end_of_day) }
-            end
-          end
-        end
-      end
-    end
+    custom_search = {
+      fields: [:title, :description],
+      highlight: { tag: "<span class='highlight'>" },
+      misspellings: { distance: 2 },
+      page: params[:page],
+      partial: true,
+      per_page: 10,
+      order: {},
+      where: {}
+    }
+
+    custom_search[:order].merge!({ title: :asc }) if params[:elastic].try(:[], :alphabetically).to_i == 1
+    custom_search[:order].merge!({ updated_at: :desc }) if params[:elastic].try(:[], :most_recent).to_i == 1
+
+    custom_search[:where].merge!({ updated_at: { lte: Time.now, gte: (Time.now - 1.week) } }) if params[:elastic].try(:[], :this_week).to_i == 1
+    custom_search[:where].merge!({ updated_at: { lte: Time.now.beginning_of_day, gte: (Time.now.end_of_day) } }) if params[:elastic].try(:[], :today).to_i == 1
+
+    self.search (params[:elastic].try(:[], :search) || '*'), custom_search
   end
 end

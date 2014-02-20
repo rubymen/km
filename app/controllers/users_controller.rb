@@ -1,10 +1,12 @@
 class UsersController < ApplicationController
-  require 'will_paginate/array'
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
+  def autocomplete
+    render json: User.search(params[:query], fields: [{ lastname: :text_start }], limit: 10)
+  end
+
   def index
-    @search = User.search params
-    @users  = @search.results.paginate(page: params[:page], per_page: 20)
+    @users = User.to_search params
   end
 
   def show
