@@ -1,11 +1,27 @@
-h1= @document.title
+.row
+  .col-lg-12
+    h1= @document.title
+    = @document.description
+    hr
+    = @document.content
 
-= link_to 'Editer', edit_document_path(@document), class: 'btn btn-default'
-= link_to 'Supprimer', @document, method: :delete, class: 'btn btn-default', confirm: 'Etes-vous sûr ?'
+  .col-lg-12.ptl
+    = link_to 'Editer', edit_document_path(@document), class: 'btn btn-default'
+    = link_to 'Supprimer', @document, method: :delete, class: 'btn btn-default', confirm: 'Etes-vous sûr ?'
 
-.list-group
-  - @document.versions.reverse.each do |document|
-    - if document = document.reify
-      a.list-group-item href="#"
-        h4.list-group-item-heading= document.title
-        p.list-group-item-text= document.description
+  .col-lg-12.ptl
+    h2 Versions du document
+    #accordion.panel-group
+      - @document.versions.reverse.each do |document|
+        - if document = document.reify
+          .panel.panel-default
+            .panel-heading
+              h4.panel-title
+                a data-parent="#accordion" data-toggle="collapse" href=("#collapse#{document.version.id}")
+                  = "Version ##{document.version.id}"
+            .panel-collapse.collapse id=("collapse#{document.version.id}")
+              a.list-group-item href=(change_version_document_path(document.id, version: document.version.id))
+                h5= "(#{l(document.updated_at, format: :short)})"
+                hr
+                h4.list-group-item-heading= document.title
+                p.list-group-item-text= document.description

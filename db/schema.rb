@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140220145829) do
+ActiveRecord::Schema.define(version: 20140220162716) do
 
   create_table "attachments", force: true do |t|
     t.string   "path"
@@ -48,6 +48,16 @@ ActiveRecord::Schema.define(version: 20140220145829) do
   end
 
   add_index "documents", ["slug"], name: "index_documents_on_slug", unique: true, using: :btree
+
+  create_table "documents_tags", force: true do |t|
+    t.integer  "document_id"
+    t.integer  "tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "documents_tags", ["document_id"], name: "index_documents_tags_on_document_id", using: :btree
+  add_index "documents_tags", ["tag_id"], name: "index_documents_tags_on_tag_id", using: :btree
 
   create_table "documents_users", force: true do |t|
     t.integer  "document_id"
@@ -98,15 +108,12 @@ ActiveRecord::Schema.define(version: 20140220145829) do
   add_index "impressions", ["user_id"], name: "index_impressions_on_user_id", using: :btree
 
   create_table "tags", force: true do |t|
-    t.integer  "document_id"
     t.string   "slug"
     t.string   "string"
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "tags", ["document_id"], name: "index_tags_on_document_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "avatar"

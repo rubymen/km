@@ -3,7 +3,7 @@ class Tag < ActiveRecord::Base
 
   friendly_id :title, use: :slugged
 
-  belongs_to :document
+  has_and_belongs_to_many :document
 
   validates :title,
             presence: true

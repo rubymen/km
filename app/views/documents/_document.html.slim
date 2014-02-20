@@ -1,0 +1,22 @@
+.row.document-item
+  .col-md-3
+    h4.mtn= raw(details.try(:[], :highlight).try(:[], :title) || document.title)
+    = document.users.sentencize(on: :firstname, empty: 'Aucun utilisateur')
+    br
+    - document.tags.each do |tag|
+      .label.label-primary
+        = tag.title
+      | &nbsp;
+  .col-md-6
+    blockquote
+      = raw(details.try(:[], :highlight).try(:[], :description) || document.description)
+    i.glyphicon.glyphicon-comment.color-blue &nbsp;
+    - unless document.comments.count == 0
+      - if document.comments.count == 1
+        = link_to 'Voir le commentaire', document_comments_path(document)
+      - else
+        = link_to "Voir les #{document.comments.count} commentaires", document_comments_path(document)
+      | &nbsp;-&nbsp;
+    = link_to 'Ajouter un commentaire', new_document_comment_path(document)
+  .col-md-3
+    = link_to 'Consulter la fiche', document_path(document), class: 'btn btn-default btn-block btn-lg'

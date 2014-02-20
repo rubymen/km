@@ -34,41 +34,18 @@
       h3 Recherche
       .input-group
       = f.input :search, as: :string, input_html: { value: params[:elastic].try(:[], :search) }, label: false, class: 'form-control'
-      = f.input :alphabetically, as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :alphabetically)) }
-      = f.input :most_popular, as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :most_popular)) }
-      = f.input :most_recent, as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :most_recent)) }
-      = f.input :this_month, as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :this_month)) }
-      = f.input :this_week, as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :this_week)) }
-      = f.input :today, as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :today)) }
+      = f.input :alphabetically, label: 'Alphabétique', as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :alphabetically)) }
+      = f.input :most_popular, label: 'Plus populaire', as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :most_popular)) }
+      = f.input :most_recent, label: 'Plus récent', as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :most_recent)) }
+      = f.input :this_month, label: 'Ce mois', as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :this_month)) }
+      = f.input :this_week, label: 'Cette semaine', as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :this_week)) }
+      = f.input :today, label: "Aujourd'hui", as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :today)) }
       = button_tag(type: 'submit', class: 'btn btn-block btn-default') do
             i.glyphicon.glyphicon-search
             '  Rechercher
       = link_to 'Supprimer les filtres', request.path, class: 'btn btn-block btn-default'
   .col-md-10.ptl
     - @documents.with_details.each do |document, details|
-      .row.document-item
-        .col-md-1
-          img src='http://placehold.it/50x50'
-        .col-md-2
-          h4.mtn= raw(details[:highlight].try(:[], :title) || document.title)
-          = link_to 'John Doe', request.path
-          br
-          - document.tags.each do |tag|
-            .label.label-primary
-              = tag
-            | &nbsp;
-        .col-md-6
-          blockquote
-            = raw(details[:highlight].try(:[], :description) || document.description)
-          i.glyphicon.glyphicon-comment.color-blue &nbsp;
-          - unless document.comments.count == 0
-            - if document.comments.count == 1
-              = link_to 'Voir le commentaire', document_comments_path(document)
-            - else
-              = link_to "Voir les #{document.comments.count} commentaires", document_comments_path(document)
-            | &nbsp;-&nbsp;
-          = link_to 'Ajouter un commentaire', new_document_comment_path(document)
-        .col-md-3
-          = link_to 'Consulter la fiche', document_path(document), class: 'btn btn-default btn-block btn-lg'
+      = render document, details: details
 
     = will_paginate @documents, renderer: BootstrapPagination::Rails, class: 'pagination pagination-centered'

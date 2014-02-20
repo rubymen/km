@@ -5,7 +5,7 @@ class Document < ActiveRecord::Base
 
   friendly_id :title, use: :slugged
 
-  has_paper_trail
+  has_paper_trail on: :update
 
   searchkick language: 'French', text_start: [:title]
 
@@ -31,7 +31,7 @@ class Document < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_many :attachments, dependent: :destroy
   has_many :comments, dependent: :destroy
-  has_many :tags
+  has_and_belongs_to_many :tags
 
   accepts_nested_attributes_for :attachments, reject_if: ->(a) { a[:path].blank? }, allow_destroy: true
 
@@ -45,6 +45,7 @@ class Document < ActiveRecord::Base
     {
       content:      content,
       description:  description,
+      tags:         tags.map(&:title),
       title:        title,
       total_visits: impressionist_count,
       updated_at:   updated_at
@@ -55,7 +56,7 @@ class Document < ActiveRecord::Base
     params[:elastic].delete_if { |k, v| v.blank? } if params[:elastic]
 
     custom_search = {
-      fields: [:title, :description],
+      fields: [:description, :title, :tags],
       highlight: { tag: "<span class='highlight'>" },
       misspellings: { distance: 2 },
       page: params[:page],
