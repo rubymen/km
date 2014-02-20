@@ -8,5 +8,5 @@
     = f.simple_fields_for :attachments do |attachment|
       = render 'attachment_fields', f: attachment
     .links
-      = link_to_add_association 'Ajouter une pièce jointe', f, :attachments
-  = f.submit
+      = link_to_add_association 'Ajouter une pièce jointe', f, :attachments, class: 'btn btn-info mtm'
+  = f.button :submit, 'Valider le document', class: 'btn-success mtl'

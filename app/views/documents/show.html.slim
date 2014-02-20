@@ -1,15 +1,25 @@
 .row
-  .col-lg-12
+  .col-md-12
     h1= @document.title
-    = @document.description
+    .mbxs= @document.description
+    br
+    .mbxs Créé par :
+    - @document.users.each do |user|
+      = link_to user.name, user_path(user)
+      br
+    br
+    - @document.tags.each do |tag|
+      a.label.label-default href=(tag_path tag)
+        = tag.title
+      | &nbsp;
     hr
     = @document.content
 
-  .col-lg-12.ptl
-    = link_to 'Editer', edit_document_path(@document), class: 'btn btn-default'
-    = link_to 'Supprimer', @document, method: :delete, class: 'btn btn-default', confirm: 'Etes-vous sûr ?'
+  .col-md-12.ptl
+    = link_to 'Editer', edit_document_path(@document), class: 'btn btn-info'
+    = link_to 'Supprimer', @document, method: :delete, class: 'btn btn-danger mlm', confirm: 'Etes-vous sûr ?'
 
-  .col-lg-12.ptl
+  .col-md-12.ptl
     h2 Versions du document
     #accordion.panel-group
       - @document.versions.reverse.each do |document|
@@ -23,5 +33,12 @@
               a.list-group-item href=(change_version_document_path(document.id, version: document.version.id))
                 h5= "(#{l(document.updated_at, format: :short)})"
                 hr
-                h4.list-group-item-heading= document.title
-                p.list-group-item-text= document.description
+                - unless document.version.changeset[:title].nil?
+                  h4.list-group-item-heading.mbl Changement du titre
+                  pre= Differ.diff_by_word(document.version.changeset[:title][1], document.version.changeset[:title][0]).format_as(:html).html_safe
+                - unless document.version.changeset[:description].nil?
+                  h4.list-group-item-heading.mbl Changement de la description
+                  pre= Differ.diff_by_word(document.version.changeset[:description][1], document.version.changeset[:description][0]).format_as(:html).html_safe
+                - unless document.version.changeset[:content].nil?
+                  h4.list-group-item-heading.mbl Changement du contenu
+                  pre= Differ.diff_by_word(document.version.changeset[:content][1], document.version.changeset[:content][0]).format_as(:html).html_safe

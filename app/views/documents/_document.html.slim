@@ -1,10 +1,12 @@
 .row.document-item
   .col-md-3
     h4.mtn= raw(details.try(:[], :highlight).try(:[], :title) || document.title)
-    = document.users.sentencize(on: :firstname, empty: 'Aucun utilisateur')
+    - document.users.each do |user|
+      = link_to user.name, user_path(user)
+      br
     br
     - document.tags.each do |tag|
-      .label.label-primary
+      a.label.label-default href=(tag_path tag)
         = tag.title
       | &nbsp;
   .col-md-6

@@ -19,7 +19,7 @@
 
 
 .row
-  .col-lg-12
+  .col-md-12
     h1
       | Documents
       | &nbsp;
@@ -30,6 +30,7 @@
         | Documents
 .row
   .col-md-2
+    = link_to 'Créer un document', new_document_path, class: 'btn btn-block btn-success'
     = simple_form_for :elastic, url: documents_path, method: :get do |f|
       h3 Recherche
       .input-group
@@ -43,7 +44,7 @@
       = button_tag(type: 'submit', class: 'btn btn-block btn-default') do
             i.glyphicon.glyphicon-search
             '  Rechercher
-      = link_to 'Supprimer les filtres', request.path, class: 'btn btn-block btn-default'
+      = link_to 'Supprimer les filtres', request.path, class: 'btn btn-block btn-danger'
   .col-md-10.ptl
     - @documents.with_details.each do |document, details|
       = render document, details: details
