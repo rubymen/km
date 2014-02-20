@@ -4,10 +4,13 @@ Km::Application.routes.draw do
 
   resources :attachments
   resources :documents do
+    get 'autocomplete', on: :collection
     resources :comments, on: :member, except: [:show, :edit, :update] do
       resources :comments, on: :member, only: [:new, :create]
     end
   end
   resources :tags
-  resources :users
+  resources :users do
+    get 'autocomplete', on: :collection
+  end
 end
