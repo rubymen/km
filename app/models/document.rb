@@ -1,6 +1,8 @@
 class Document < ActiveRecord::Base
   extend FriendlyId
 
+  is_impressionable
+
   friendly_id :title, use: :slugged
 
   has_paper_trail
@@ -44,6 +46,7 @@ class Document < ActiveRecord::Base
       content:      content,
       description:  description,
       title:        title,
+      total_visits: impressionist_count,
       updated_at:   updated_at
     }
   end
@@ -63,6 +66,7 @@ class Document < ActiveRecord::Base
     }
 
     custom_search[:order].merge!({ title: :asc }) if params[:elastic].try(:[], :alphabetically).to_i == 1
+    custom_search[:order].merge!({ total_visits: :desc }) if params[:elastic].try(:[], :most_popular).to_i == 1
     custom_search[:order].merge!({ updated_at: :desc }) if params[:elastic].try(:[], :most_recent).to_i == 1
 
     custom_search[:where].merge!({ updated_at: { lte: Time.now, gte: (Time.now - 1.week) } }) if params[:elastic].try(:[], :this_week).to_i == 1

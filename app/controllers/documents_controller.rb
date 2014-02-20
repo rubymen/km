@@ -10,6 +10,8 @@ class DocumentsController < ApplicationController
   end
 
   def show
+    impressionist @document, "", unique: [:impressionable_type, :session_hash]
+    Document.reindex
   end
 
   def new
