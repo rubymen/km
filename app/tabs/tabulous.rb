@@ -37,7 +37,7 @@ Tabulous.setup do
 
     # whether to allow the active tab to be clicked
     # defaults to true
-    active_tab_clickable false
+    active_tab_clickable true
 
     # what to do when there is no active tab for the current controller action
     # :render -- draw the tabset, even though no tab is active

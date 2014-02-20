@@ -3,15 +3,17 @@ ruby '2.0.0'
 
 gem 'rails', '4.0.0'
 
-gem 'bootstrap-sass-rails'
+gem 'bootstrap-sass'
 gem 'cancan'
 gem 'capistrano',           group: :development
 gem 'carrierwave'
+gem 'chartkick'
 gem 'cocoon'
 gem 'coffee-rails',         '~> 4.0.0'
 gem 'country_select'
 gem 'devise'
 gem 'devise-i18n-views',    '~> 0.2'
+gem 'differ'
 gem 'friendly_id',          '~> 5.0.0'
 gem 'impressionist',        '~> 1.5.1'
 gem 'jquery-rails'

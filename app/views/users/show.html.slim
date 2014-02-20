@@ -1,1 +1,16 @@
-= @user.firstname
+.page-header
+  h1
+    = image_tag(@user.avatar.thumb, class: 'mrm')
+    = "#{@user.name}"
+    small.mlm
+      = link_to "(#{@user.email})", "mailto:#{@user.email}"
+
+.row
+  .col-md-12
+    - if @user.documents.any?
+      h2 Tous les documents de cet utilisateur
+    - else
+      h2 Cet utilisateur n'a pas de documents publiés
+  .col-md-12.ptl
+    - @user.documents.each do |document, details|
+      = render document, details: details

@@ -18,7 +18,7 @@
       $('form.elastic').submit()
 
 .row
-  .col-lg-12
+  .col-md-12
     h1
       | Utilisateurs
       | &nbsp;
@@ -29,21 +29,22 @@
         | Utilisateurs
 .row
   .col-md-2
+    = link_to 'Créer un utilisateur', new_user_path, class: 'btn btn-block btn-success'
     = simple_form_for :elastic, url: users_path, method: :get do |f|
       h3 Recherche
       .input-group
       = f.input :search, as: :string, input_html: { value: params[:elastic].try(:[], :search) }, label: false, class: 'form-control'
       .input-group
-        = f.input :alphabetically, as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :alphabetically)) }
+        = f.input :alphabetically, label: 'Alphabétique', as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :alphabetically)) }
       .input-group
-        h3 Type
-        = f.input :member, as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :member)) }
-        = f.input :contributor, as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :contributor)) }
-        = f.input :administrator, as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :administrator)) }
+        h4 Type
+        = f.input :member, label: 'Membre', as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :member)) }
+        = f.input :contributor, label: 'Contributeur', as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :contributor)) }
+        = f.input :administrator, label: 'Administrateur', as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :administrator)) }
         = button_tag(type: 'submit', class: 'btn btn-block btn-default') do
           i.glyphicon.glyphicon-search
           '  Rechercher
-        = link_to 'Supprimer les filtres', request.path, class: 'btn btn-block btn-default'
+        = link_to 'Supprimer les filtres', request.path, class: 'btn btn-block btn-danger'
   .col-md-10
     - @users.with_details.each do |user, details|
       .row.user-item

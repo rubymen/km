@@ -1,8 +1,15 @@
 class DocumentsController < ApplicationController
-  before_action :set_document, only: [:show, :edit, :update, :destroy]
+  before_action :set_document, only: [:change_version, :show, :edit, :update, :destroy]
 
   def autocomplete
     render json: Document.search(params[:query], fields: [{ title: :text_start }], limit: 10)
+  end
+
+  def change_version
+    @document.destroy
+    @document = PaperTrail::Version.find(params[:version]).reify
+    @document.save
+    redirect_to @document, flash: { success: t('validation.reify', model: @document.class.model_name.human.downcase) }
   end
 
   def index
@@ -55,6 +62,6 @@ private
   end
 
   def document_params
-    params.require(:document).permit(:content, :description, :title, attachments_attributes: [:id, :path, :_destroy], user_ids: [])
+    params.require(:document).permit(:content, :description, :title, attachments_attributes: [:id, :path, :_destroy], user_ids: [], tag_ids: [])
   end
 end

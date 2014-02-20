@@ -18,6 +18,9 @@ en:
         description: 'Description'
         state: 'State'
         title: 'Title'
+      tag:
+        <<: *timestamps
+        title: 'Title'
       user:
         <<: *timestamps
         country_code: 'Country'
