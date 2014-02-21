@@ -36,6 +36,9 @@ class User < ActiveRecord::Base
             format: { with: /((\+|00)33\s?|0)[679](\s?\d{2}){4}/ },
             allow_blank: true
 
+  validates :type,
+            presence: true
+
   validates_date :birthdate,
                  allow_blank: true
 
