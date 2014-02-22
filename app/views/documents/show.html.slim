@@ -21,8 +21,17 @@
     = @document.content
 
   .col-md-12.ptl
-    = link_to 'Editer', edit_document_path(@document), class: 'btn btn-info'
-    = link_to 'Supprimer', @document, method: :delete, class: 'btn btn-danger mlm', confirm: 'Etes-vous sûr ?'
+    - if @document.state == 'wip'
+      = link_to 'Demander une revue', state_document_path(@document, state: 'ask_for_review'), class: 'btn btn-xs btn-warning mrm', confirm: 'Etes-vous sûr ?'
+    - if @document.state == 'in_review'
+      = link_to 'Valider', state_document_path(@document, state: 'validated'), class: 'btn btn-xs btn-success mrm', confirm: 'Etes-vous sûr ?'
+      = link_to 'Refuser', state_document_path(@document, state: 'rejected'), class: 'btn btn-xs btn-danger mrm', confirm: 'Etes-vous sûr ?'
+    - if @document.state == 'validate'
+      = link_to 'A travailler', state_document_path(@document, state: 'rejected'), class: 'btn btn-xs btn-success mrm', confirm: 'Etes-vous sûr ?'
+      = link_to 'Archiver', state_document_path(@document, state: 'archived'), class: 'btn btn-xs btn-primary mrm', confirm: 'Etes-vous sûr ?'
+  .col-md-12.ptl
+    = link_to 'Editer', edit_document_path(@document), class: 'btn btn-info mrm'
+    = link_to 'Supprimer', @document, method: :delete, class: 'btn btn-danger', confirm: 'Etes-vous sûr ?'
 
   .col-md-12.ptl
     h2 Versions du document
