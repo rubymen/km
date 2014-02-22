@@ -6,3 +6,9 @@ development:
   username: root
   password:
   socket: /tmp/mysql.sock
+
+test:
+  adapter: mysql2
+  encoding: utf8
+  database: km_test
+  pool: 5

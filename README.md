@@ -1,5 +1,7 @@
 # KM
 
+[![Coverage Status](https://coveralls.io/repos/rubymen/km/badge.png)](https://coveralls.io/r/rubymen/km)
+
 ## Bootstrap app
 
 ```rb
