@@ -11,8 +11,10 @@
       = link_to "(#{@user.email})", "mailto:#{@user.email}"
 
 .col-md-12.ptl
-  = link_to 'Editer', edit_user_path(@user), class: 'btn btn-info'
-  = link_to 'Supprimer', @user, method: :delete, class: 'btn btn-danger mlm', confirm: 'Etes-vous sûr ?'
+  - if can? :update, @user
+    = link_to 'Editer', edit_user_path(@user), class: 'btn btn-info'
+  - if can? :destroy, @user
+    = link_to 'Supprimer', @user, method: :delete, class: 'btn btn-danger mlm', confirm: 'Etes-vous sûr ?'
 
 .row
   .col-md-12

@@ -32,11 +32,13 @@ class DocumentsController < ApplicationController
 
   def new
     @document = Document.new
+    authorize! :create, @document
   end
 
   def create
     @document = current_user.documents.build document_params
     @document.users << current_user
+    authorize! :create, @document
 
     if @document.save
       redirect_to @document, flash: { success: t('validation.create', model: @document.class.model_name.human.downcase) }
@@ -46,12 +48,16 @@ class DocumentsController < ApplicationController
   end
 
   def edit
+    authorize! :update, @document
+
     unless @document.users.include? current_user
       @document.users << current_user
     end
   end
 
   def update
+    authorize! :update, @document
+
     if @document.update document_params
       redirect_to @document, flash: { success: t('validation.update', model: @document.class.model_name.human.downcase) }
     else
@@ -60,6 +66,8 @@ class DocumentsController < ApplicationController
   end
 
   def destroy
+    authorize! :destroy, @document
+
     @document.destroy
     redirect_to new_document_path, flash: { success: t('validation.destroy', model: @document.class.model_name.human.downcase) }
   end

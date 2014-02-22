@@ -1,6 +1,6 @@
 # KM
 
-[![Coverage Status](https://coveralls.io/repos/rubymen/km/badge.png)](https://coveralls.io/r/rubymen/km)
+[![Coverage Status](https://coveralls.io/repos/rubymen/km/badge.png?branch=develop)](https://coveralls.io/r/rubymen/km?branch=develop)
 
 ## Bootstrap app
 

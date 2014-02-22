@@ -8,11 +8,13 @@ class CommentsController < ApplicationController
 
   def new
     @comment = @document.comments.build
+    authorize! :comment, @document
   end
 
   def create
     @comment      = @document.comments.build comment_params
     @comment.user = current_user
+    authorize! :comment, @document
 
     if @comment.save
       redirect_to document_comments_path(@document), flash: { success: t('validation.create', model: @comment.class.model_name.human.downcase) }
@@ -23,6 +25,8 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
+    authorize! :comment, @document
+
     redirect_to document_comments_path(@document), flash: { success: t('validation.destroy', model: @comment.class.model_name.human.downcase) }
   end
 

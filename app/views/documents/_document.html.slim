@@ -18,7 +18,8 @@
         = link_to 'Voir le commentaire', document_comments_path(document)
       - else
         = link_to "Voir les #{document.comments.count} commentaires", document_comments_path(document)
+    - if can? :comment, document
       | &nbsp;-&nbsp;
-    = link_to 'Ajouter un commentaire', new_document_comment_path(document)
+      = link_to 'Ajouter un commentaire', new_document_comment_path(document)
   .col-md-3
     = link_to 'Consulter la fiche', document_path(document), class: 'btn btn-default btn-block btn-lg'

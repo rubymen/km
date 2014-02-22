@@ -82,5 +82,9 @@ namespace :db do
     tag4 = Tag.create!(title: 'CSS')
 
     tag5 = Tag.create!(title: 'Ruby on Rails')
+
+    DocumentsTags.create!(document_id: document1.id, tag_id: tag4.id)
+    DocumentsTags.create!(document_id: document2.id, tag_id: tag1.id)
+    DocumentsTags.create!(document_id: document2.id, tag_id: tag3.id)
   end
 end
