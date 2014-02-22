@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     @user = User.new user_params
 
     if @user.save
-      redirect_to @user, as: :user, flash: { success: 'Utilisateur ajouté avec succes' }
+      redirect_to @user, as: :user, flash: { success: t('validation.create', model: @user.class.model_name.human.downcase) }
     else
       render 'new'
     end
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update_attributes(user_params)
-      redirect_to @user, as: :user, flash: { success: 'Utilisateur modifié avec succes' }
+      redirect_to @user, as: :user, flash: { success: t('validation.update', model: @user.class.model_name.human.downcase) }
     else
       render 'edit'
     end
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    redirect_to new_user_path, flash: { success: 'Utilisateur supprimé avec succes' }
+    redirect_to new_user_path, flash: { success: t('validation.destroy', model: @user.class.model_name.human.downcase) }
   end
 
 private

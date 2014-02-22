@@ -1,3 +1,8 @@
+- title @document.title
+- description @document.description + ' créé par ' + @document.users.map(&:name).sentencize
+- set_meta_tags og: { title: @document.title, url: document_url(@document) }
+- set_meta_tags keywords: @document.title + ', ' + keywords
+
 .row
   .col-md-12
     h1= @document.title
