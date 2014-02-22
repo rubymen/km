@@ -1,3 +1,8 @@
+- title @tag.title
+- description 'Le tag ' + @tag.title + ' a été utilisé dans ' + @tag.documents.count.to_s + ' documents sur le Knowledge Manager'
+- set_meta_tags og: { title: @tag.title, url: tag_url(@tag) }
+- set_meta_tags keywords: @tag.title + ', ' + keywords
+
 h1= @tag.title
 
 = link_to 'Supprimer', @tag, method: :delete, confirm: 'Etes-vous sûr ?'

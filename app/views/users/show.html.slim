@@ -1,3 +1,8 @@
+- title @user.name
+- description 'Fiche de : ' + @user.name
+- set_meta_tags og: { title: 'Fiche de : ' + @user.name, url: user_url(@user) }
+- set_meta_tags keywords: "#{@user.name}, #{@user.firstname}, #{@user.lastname}, #{@user.email}, " + keywords
+
 .page-header
   h1
     = image_tag(@user.avatar.thumb, class: 'mrm')
@@ -6,8 +11,8 @@
       = link_to "(#{@user.email})", "mailto:#{@user.email}"
 
 .col-md-12.ptl
-    = link_to 'Editer', edit_user_path(@user), class: 'btn btn-info'
-    = link_to 'Supprimer', @user, method: :delete, class: 'btn btn-danger mlm', confirm: 'Etes-vous sûr ?'
+  = link_to 'Editer', edit_user_path(@user), class: 'btn btn-info'
+  = link_to 'Supprimer', @user, method: :delete, class: 'btn btn-danger mlm', confirm: 'Etes-vous sûr ?'
 
 .row
   .col-md-12
