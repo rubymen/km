@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     @user = User.new user_params
 
     if @user.save
-      redirect_to @user, as: :user, flash: { success: 'Utilisateur ajoute avec succes' }
+      redirect_to @user, as: :user, flash: { success: 'Utilisateur ajouté avec succes' }
     else
       render 'new'
     end
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update_attributes(user_params)
-      redirect_to @user, as: :user, flash: { success: 'Utilisateur modifie avec succes' }
+      redirect_to @user, as: :user, flash: { success: 'Utilisateur modifié avec succes' }
     else
       render 'edit'
     end
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    redirect_to new_user_path
+    redirect_to new_user_path, flash: { success: 'Utilisateur supprimé avec succes' }
   end
 
 private
