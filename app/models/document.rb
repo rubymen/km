@@ -71,7 +71,7 @@ class Document < ActiveRecord::Base
     custom_search[:order].merge!({ updated_at: :desc }) if params[:elastic].try(:[], :most_recent).to_i == 1
 
     custom_search[:where].merge!({ updated_at: { lte: Time.now, gte: (Time.now - 1.week) } }) if params[:elastic].try(:[], :this_week).to_i == 1
-    custom_search[:where].merge!({ updated_at: { lte: Time.now.beginning_of_day, gte: (Time.now.end_of_day) } }) if params[:elastic].try(:[], :today).to_i == 1
+    custom_search[:where].merge!({ updated_at: { lte: Time.now, gte: (Time.now.beginning_of_day) } }) if params[:elastic].try(:[], :today).to_i == 1
 
     self.search (params[:elastic].try(:[], :search) || '*'), custom_search
   end
