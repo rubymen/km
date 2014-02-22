@@ -1,5 +1,5 @@
 class DocumentsController < ApplicationController
-  before_action :set_document, only: [:change_version, :show, :edit, :update, :destroy]
+  before_action :set_document, only: [:change_version, :state, :show, :edit, :update, :destroy]
 
   def autocomplete
     render json: Document.search(params[:query], fields: [{ title: :text_start }], limit: 10)
@@ -10,6 +10,15 @@ class DocumentsController < ApplicationController
     @document = PaperTrail::Version.find(params[:version]).reify
     @document.save
     redirect_to @document, flash: { success: t('validation.reify', model: @document.class.model_name.human.downcase) }
+  end
+
+  def state
+    PaperTrail.enabled = false
+
+    @document.try params[:state]
+
+    PaperTrail.enabled = true
+    redirect_to @document
   end
 
   def index
