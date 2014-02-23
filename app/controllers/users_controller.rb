@@ -14,10 +14,12 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    authorize! :create, @user
   end
 
   def create
     @user = User.new user_params
+    authorize! :create, @user
 
     if @user.save
       redirect_to @user, as: :user, flash: { success: t('validation.create', model: @user.class.model_name.human.downcase) }
@@ -27,9 +29,12 @@ class UsersController < ApplicationController
   end
 
   def edit
+    authorize! :update, @user
   end
 
   def update
+    authorize! :update, @user
+
     if @user.update_attributes(user_params)
       redirect_to @user, as: :user, flash: { success: t('validation.update', model: @user.class.model_name.human.downcase) }
     else
@@ -38,6 +43,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    authorize! :destroy, @user
     @user.destroy
     redirect_to new_user_path, flash: { success: t('validation.destroy', model: @user.class.model_name.human.downcase) }
   end

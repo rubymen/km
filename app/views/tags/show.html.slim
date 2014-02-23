@@ -5,7 +5,8 @@
 
 h1= @tag.title
 
-= link_to 'Supprimer', @tag, method: :delete, confirm: 'Etes-vous sûr ?'
+- if can? :destroy, Tag.new
+  = link_to 'Supprimer', @tag, method: :delete, confirm: 'Etes-vous sûr ?'
 
 h3= "Ce tag est utilisé dans #{pluralize(@tag.documents.count, 'document', 'documents')}"
 
