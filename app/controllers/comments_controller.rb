@@ -24,9 +24,9 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment.destroy
     authorize! :comment, @document
 
+    @comment.destroy
     redirect_to document_comments_path(@document), flash: { success: t('validation.destroy', model: @comment.class.model_name.human.downcase) }
   end
 

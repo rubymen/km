@@ -18,7 +18,7 @@ class TagsController < ApplicationController
     authorize! :create, @tag
 
     if @tag.save
-      redirect_to @tag, flash: { success: 'Tag créé' }
+      redirect_to @tag, flash: { success: t('validation.create', model: @tag.class.model_name.human.downcase) }
     else
       render 'new'
     end
@@ -31,7 +31,7 @@ class TagsController < ApplicationController
     authorize! :update, @tag
 
     if @tag.update tag_params
-      redirect_to @tag, flash: { success: 'Tag mis à jour' }
+      redirect_to @tag, flash: { success: t('validation.update', model: @tag.class.model_name.human.downcase) }
     else
       render 'edit'
     end
@@ -41,7 +41,7 @@ class TagsController < ApplicationController
     authorize! :destroy, @tag
 
     @tag.destroy
-    redirect_to new_tag_path, flash: { success: 'Tag supprimé' }
+    redirect_to new_tag_path, flash: { success: t('validation.destroy', model: @tag.class.model_name.human.downcase) }
   end
 
 private

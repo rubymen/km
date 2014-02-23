@@ -1,10 +1,12 @@
 .row
-  .col-md-12
-    .pull-left
-      h2 Commentaires de "#{@document.title}"
-    .pull-right
-      = link_to 'Retour aux documents', documents_path, class: 'btn btn-default btn-lg'
-= render @comments
+  .col-md-10
+    h2 Commentaires de "#{@document.title}"
+
+  .col-md-2.text-right.mtl
+    = link_to 'Retour au document', @document, class: 'btn btn-default btn-lg'
 
 - if can? :comment, @document
-  = link_to 'Ajouter un commentaire', new_document_comment_path(@document), class: 'btn btn-default'
+  = link_to 'Ajouter un commentaire', new_document_comment_path(@document), class: 'btn btn-success'
+
+.mtl
+  = render @comments
