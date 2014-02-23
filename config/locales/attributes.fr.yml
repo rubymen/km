@@ -18,6 +18,7 @@ fr:
         description: 'Description'
         state: 'État'
         title: 'Titre'
+        users: 'Utilisateurs'
       tag:
         <<: *timestamps
         title: 'Libellé'

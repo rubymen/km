@@ -4,6 +4,7 @@
   = f.input :description
   = f.input :content
   = f.association :tags
+  = f.association :users
   #attachments
     = f.simple_fields_for :attachments do |attachment|
       = render 'attachment_fields', f: attachment
