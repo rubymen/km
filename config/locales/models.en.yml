@@ -4,6 +4,9 @@ en:
       attachement:
         one: 'Attachment'
         other: 'Attachments'
+      comment:
+        one: 'Comment'
+        other: 'Comments'
       document:
         one: 'Document'
         other: 'Documents'

@@ -4,6 +4,9 @@ fr:
       attachement:
         one: 'Pièce jointe'
         other: 'Pièces jointes'
+      comment:
+        one: 'Commentaire'
+        other: 'Commentaires'
       document:
         one: 'Document'
         other: 'Documents'

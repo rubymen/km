@@ -18,6 +18,7 @@ en:
         description: 'Description'
         state: 'State'
         title: 'Title'
+        users: 'Users'
       tag:
         <<: *timestamps
         title: 'Title'
