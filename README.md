@@ -19,3 +19,13 @@ rake db:drop; rake db:create; rake db:migrate; rake db:populate
 ```sh
 rake searchkick:reindex CLASS=Document; rake searchkick:reindex CLASS=User
 ```
+
+## Deploy
+
+```rb
+cap deploy:setup
+cap uploads:setup
+cap deploy
+```
+
+**Note**: you can prefix function by environment (usually, production or staging)

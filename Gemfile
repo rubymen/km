@@ -1,11 +1,10 @@
 source 'https://rubygems.org'
-ruby '2.0.0'
 
 gem 'rails', '4.0.0'
 
 gem 'bootstrap-sass'
 gem 'cancan'
-gem 'capistrano',           group: :development
+gem 'capistrano',           '~> 2.15'
 gem 'carrierwave'
 gem 'chartkick'
 gem 'cocoon'
@@ -32,6 +31,7 @@ gem 'simple_form',          '~> 3.0.1'
 gem 'slim'
 gem 'state_machine',        '1.2.0'
 gem 'tabulous'
+gem 'therubyracer'
 gem 'uglifier',             '>= 1.3.0'
 gem 'unicorn'
 gem 'validates_timeliness', '~> 3.0'
@@ -40,9 +40,4 @@ gem 'will_paginate-bootstrap'
 group :development, :test do
   gem 'rspec-rails',        '~> 3.0.0.beta'
   gem 'shoulda-matchers'
-end
-
-group :production do
-  gem 'pg'
-  gem 'rails_12factor'
 end

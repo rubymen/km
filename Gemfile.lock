@@ -33,10 +33,12 @@ GEM
       sass (~> 3.2)
     builder (3.1.4)
     cancan (1.6.10)
-    capistrano (3.1.0)
-      i18n
-      rake (>= 10.0.0)
-      sshkit (~> 1.3)
+    capistrano (2.15.5)
+      highline
+      net-scp (>= 1.0.0)
+      net-sftp (>= 2.0.0)
+      net-ssh (>= 2.0.14)
+      net-ssh-gateway (>= 1.1.0)
     carrierwave (0.9.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -84,6 +86,7 @@ GEM
     friendly_id (5.0.3)
       activerecord (>= 4.0.0)
     hashr (0.0.22)
+    highline (1.6.20)
     hike (1.2.3)
     httpclient (2.3.4.1)
     i18n (0.6.9)
@@ -95,6 +98,7 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.1)
     kgio (2.9.2)
+    libv8 (3.16.14.3)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -107,14 +111,17 @@ GEM
     mysql2 (0.3.15)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
+    net-sftp (2.1.2)
+      net-ssh (>= 2.6.5)
     net-ssh (2.8.0)
+    net-ssh-gateway (1.2.0)
+      net-ssh (>= 2.6.5)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     orm_adapter (0.5.0)
     paper_trail (3.0.0)
       activerecord (>= 3.0, < 5.0)
       activesupport (>= 3.0, < 5.0)
-    pg (0.17.1)
     polyglot (0.3.4)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -127,11 +134,6 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.0.0)
       sprockets-rails (~> 2.0.0)
-    rails_12factor (0.0.2)
-      rails_serve_static_assets
-      rails_stdout_logging
-    rails_serve_static_assets (0.0.2)
-    rails_stdout_logging (0.0.3)
     railties (4.0.0)
       actionpack (= 4.0.0)
       activesupport (= 4.0.0)
@@ -139,6 +141,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.12.0)
     rake (10.1.1)
+    ref (1.0.5)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rmagick (2.13.2)
@@ -194,10 +197,6 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
-    sshkit (1.3.0)
-      net-scp (>= 1.1.2)
-      net-ssh
-      term-ansicolor
     state_machine (1.2.0)
     tabulous (2.1.0)
       colored (~> 1.2.0)
@@ -205,6 +204,9 @@ GEM
     temple (0.6.7)
     term-ansicolor (1.3.0)
       tins (~> 1.0)
+    therubyracer (0.12.1)
+      libv8 (~> 3.16.14.0)
+      ref
     thor (0.18.1)
     thread_safe (0.1.3)
       atomic
@@ -246,7 +248,7 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-sass
   cancan
-  capistrano
+  capistrano (~> 2.15)
   carrierwave
   chartkick
   cocoon
@@ -265,9 +267,7 @@ DEPENDENCIES
   meta-tags
   mysql2
   paper_trail (>= 3.0.0.rc2)
-  pg
   rails (= 4.0.0)
-  rails_12factor
   rmagick (~> 2.13.2)
   rspec-rails (~> 3.0.0.beta)
   sass-rails (~> 4.0.0)
@@ -278,6 +278,7 @@ DEPENDENCIES
   slim
   state_machine (= 1.2.0)
   tabulous
+  therubyracer
   uglifier (>= 1.3.0)
   unicorn
   validates_timeliness (~> 3.0)
