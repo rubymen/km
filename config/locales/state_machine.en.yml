@@ -1,0 +1,8 @@
+en:
+  activerecord:
+    state_machines:
+      states:
+        archive: 'Archived'
+        in_review: 'In review'
+        validate: 'Valid'
+        wip: 'Work in progress'

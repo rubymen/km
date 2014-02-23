@@ -2,7 +2,7 @@ doctype html
 head
   = display_meta_tags site: 'Knowledge Manager'
   meta content='Rubymen' name='author'
-  meta content='width=(device-width, initial-scale=1.0,)maximum-scale=1.0' name='viewport'
+  meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0' name='viewport'
   meta content='Milicon - Knowledge Manager' property='og:site_name'
   = favicon_link_tag 'favicon.png'
   = stylesheet_link_tag 'application', media: 'all'
@@ -13,7 +13,7 @@ head
 body
 
   #wrapper
-    -if (request.path == '/users/sign_in')
+    - if (request.path == '/users/sign_in')
       #wrapper-login
         = render 'layouts/header'
 
@@ -36,7 +36,7 @@ body
 
         #page-wrapper
           = yield
-    -else
+    - else
       = render 'layouts/header'
 
       - if flash[:warn] || flash[:alert]

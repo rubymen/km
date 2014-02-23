@@ -8,7 +8,8 @@ class Ability
 
     if user && user.class.name === 'Users::Contributor'
       can :create, Document
-      can [:update, :destroy, :comment], Document, id: user.document_ids, state: ['wip', 'in_review']
+      can :state, Document, id: user.document_ids, state: ['wip']
+      can [:update, :comment], Document, id: user.document_ids, state: ['wip', 'in_review']
       can [:read, :update, :destroy], User, id: user.id
     end
 
