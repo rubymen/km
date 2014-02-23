@@ -15,6 +15,7 @@
         small
           = link_to "#{response.user.firstname} #{response.user.lastname}", user_path(response.user)
           | &nbsp; (en réponse à&nbsp;
+          = link_to comment.content, "##{comment.id}"
           | )
           | &nbsp;-&nbsp;
           = link_to 'Supprimer', [@document, response], method: :delete, confirm: 'Etes-vous sûr ?'
