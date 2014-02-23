@@ -1,5 +1,6 @@
 - unless comment.comment_id
   .well id="#{comment.id}"
+    h4 ##{comment.id}
     blockquote
       = comment.content
       small
@@ -10,12 +11,13 @@
         = link_to 'Supprimer', [@document, comment], method: :delete, confirm: 'Etes-vous sûr ?'
   -comment.comments.each do |response|
     .well.mll
+      h5 ##{response.id}
       blockquote
         = response.content
         small
           = link_to "#{response.user.firstname} #{response.user.lastname}", user_path(response.user)
           | &nbsp; (en réponse à&nbsp;
-          = link_to comment.content, "##{comment.id}"
+          = link_to "##{comment.id}", "##{comment.id}"
           | )
           | &nbsp;-&nbsp;
           = link_to 'Supprimer', [@document, response], method: :delete, confirm: 'Etes-vous sûr ?'
