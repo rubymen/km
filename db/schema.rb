@@ -23,7 +23,6 @@ ActiveRecord::Schema.define(version: 20140220173441) do
   add_index "attachments", ["document_id"], name: "index_attachments_on_document_id", using: :btree
 
   create_table "comments", force: true do |t|
-    t.string   "title"
     t.string   "content"
     t.integer  "user_id"
     t.integer  "comment_id"

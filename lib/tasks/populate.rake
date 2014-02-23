@@ -47,29 +47,24 @@ namespace :db do
                                   description:  'Une longue description du second document par ce qu\'il est vraiment super génial et qu\'il faut tester la taille de notre contenu.',
                                   content:      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vestibulum nulla ligula, in interdum nisl mollis ut. Sed auctor nunc nec velit congue rutrum. Phasellus eu erat sed libero euismod malesuada. In sed sem viverra, interdum tellus eu, elementum turpis. Fusce elementum, odio sit amet consectetur vehicula, magna elit convallis sapien, a tincidunt tellus orci vitae nibh. Aenean cursus ligula id neque vehicula tincidunt. Aliquam quis molestie lorem, sed porta tortor. Duis elementum at felis vel semper. Vivamus interdum nisl ac arcu consectetur fermentum. Quisque id nunc lacus. Fusce tincidunt ac odio et cursus. Vestibulum id dui sit amet risus suscipit imperdiet ultrices id ligula. Nullam justo leo, rutrum at nisl interdum, ultricies rutrum mauris.')
 
-    comment1 = Comment.create!( title:        'Félicitation !',
-                                content:      'Ce document est génial !',
+    comment1 = Comment.create!( content:      'Ce document est génial !',
                                 document_id:  document1.id,
                                 user_id:      admin.id)
 
-    comment2 = Comment.create!( title:        'Question',
-                                content:      'Je ne comprends pas la ligne #45, pouvez-vous m\'aider?',
+    comment2 = Comment.create!( content:      'Je ne comprends pas la ligne #45, pouvez-vous m\'aider?',
                                 document_id:  document1.id,
                                 user_id:      contributor.id)
 
-    comment2rep = Comment.create!(  title:        'Euh ... non.',
-                                    content:      'J\'ai pas le temps de t\'expliquer.',
+    comment2rep = Comment.create!(  content:      'J\'ai pas le temps de t\'expliquer.',
                                     document_id:  document1.id,
                                     user_id:      admin.id,
                                     comment_id:   comment2.id)
 
-    comment3 = Comment.create!( title:        'Lorem Ipsum',
-                                content:      'Lorem ipsum dolor sit amet',
+    comment3 = Comment.create!( content:      'Lorem ipsum dolor sit amet',
                                 document_id:  document2.id,
                                 user_id:      member.id)
 
-    comment4 = Comment.create!( title:        'Magnifique !',
-                                content:      'J\'adore ce document ! Merci beaucoup !',
+    comment4 = Comment.create!( content:      'J\'adore ce document ! Merci beaucoup !',
                                 document_id:  document1.id,
                                 user_id:      member.id)
 
