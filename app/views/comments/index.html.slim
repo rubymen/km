@@ -4,6 +4,7 @@
       h2 Commentaires de "#{@document.title}"
     .pull-right
       = link_to 'Retour aux documents', documents_path, class: 'btn btn-default btn-lg'
-= render @document.comments
+= render @comments
 
-= link_to 'Ajouter un commentaire', new_document_comment_path(@document), class: 'btn btn-default'
+- if can? :comment, @document
+  = link_to 'Ajouter un commentaire', new_document_comment_path(@document), class: 'btn btn-default'
