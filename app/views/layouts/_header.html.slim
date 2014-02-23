@@ -1,11 +1,12 @@
-nav.navbar.navbar-inverse.navbar-fixed-top role="navigation"
+nav.navbar.navbar-inverse.navbar-fixed-top role='navigation'
   .navbar-header
-    button.navbar-toggle data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button"
+    button.navbar-toggle data-target='.navbar-ex1-collapse' data-toggle='collapse' type='button'
       span.sr-only Toggle navigation
       span.icon-bar
       span.icon-bar
       span.icon-bar
     = link_to image_tag('favicon.png') + ' Knowledge Manager', root_path, class: 'navbar-brand'
+
   .collapse.navbar-collapse.navbar-ex1-collapse
     .side-nav
       = tabs
@@ -15,13 +16,13 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation"
           = link_to 'Connexion', new_user_session_path
       - else
         li.dropdown.user-dropdown
-          a.dropdown-toggle data-toggle="dropdown" href="#"
+          a.dropdown-toggle data-toggle='dropdown' href='#'
             i.glyphicon.glyphicon-user
             | &nbsp; &nbsp;
             =current_user.name
             | &nbsp;
           ul.dropdown-menu
             li
-              = link_to 'Mot de passe', user_password_path
+              = link_to 'Modifier mon compte', current_user
             li
               = link_to 'Déconnexion', destroy_user_session_path, method: :delete

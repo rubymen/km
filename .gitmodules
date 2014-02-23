@@ -1,0 +1,3 @@
+[submodule "app/assets/stylesheets/main_css_classes"]
+	path = app/assets/stylesheets/main_css_classes
+	url = git://github.com/tiste/main_css_classes.git

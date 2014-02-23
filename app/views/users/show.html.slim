@@ -10,18 +10,21 @@
     small.mlm
       = link_to "(#{@user.email})", "mailto:#{@user.email}"
 
-.col-md-12.ptl
-  - if can? :update, @user
-    = link_to 'Editer', edit_user_path(@user), class: 'btn btn-info'
-  - if can? :destroy, @user
-    = link_to 'Supprimer', @user, method: :delete, class: 'btn btn-danger mlm', confirm: 'Etes-vous sûr ?'
-
 .row
+  .col-md-12.mtl
+    - if can? :update, @user
+      h4 Actions de gestion
+      = link_to 'Editer', edit_user_path(@user), class: 'btn btn-info'
+    - if can? :destroy, @user
+      = link_to 'Supprimer', @user, method: :delete, class: 'btn btn-danger mlm', confirm: 'Etes-vous sûr ?'
+
+.row.mtxl
   .col-md-12
     - if @user.documents.any?
       h2 Tous les documents de cet utilisateur
     - else
       h2 Cet utilisateur n'a pas de documents publiés
-  .col-md-12.ptl
-    - @user.documents.each do |document, details|
-      = render document, details: details
+
+    .mtl
+      - @user.documents.each do |document|
+        = render document, details: nil

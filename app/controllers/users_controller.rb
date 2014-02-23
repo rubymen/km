@@ -44,6 +44,7 @@ class UsersController < ApplicationController
 
   def destroy
     authorize! :destroy, @user
+
     @user.destroy
     redirect_to new_user_path, flash: { success: t('validation.destroy', model: @user.class.model_name.human.downcase) }
   end

@@ -6,17 +6,21 @@ class DocumentsController < ApplicationController
   end
 
   def change_version
+    authorize! :update, @document
+
+    users = @document.users.each { |u| u }
     @document.destroy
     @document = PaperTrail::Version.find(params[:version]).reify
+    @document.users << users
     @document.save
     redirect_to @document, flash: { success: t('validation.reify', model: @document.class.model_name.human.downcase) }
   end
 
   def state
+    authorize! :state, @document
+
     PaperTrail.enabled = false
-
     @document.try params[:state]
-
     PaperTrail.enabled = true
     redirect_to @document
   end
@@ -26,7 +30,7 @@ class DocumentsController < ApplicationController
   end
 
   def show
-    impressionist @document, "", unique: [:impressionable_type, :session_hash]
+    impressionist @document, '', unique: [:impressionable_type, :session_hash]
     Document.reindex
   end
 

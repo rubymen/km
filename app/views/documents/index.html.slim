@@ -22,7 +22,6 @@
     $('form.elastic input[type=checkbox]').change ->
       $('form.elastic').submit()
 
-
 .row
   .col-md-12
     h1
@@ -39,7 +38,6 @@
       = link_to 'Créer un document', new_document_path, class: 'btn btn-block btn-success'
     = simple_form_for :elastic, url: documents_path, method: :get do |f|
       h3 Recherche
-      .input-group
       = f.input :search, as: :string, input_html: { value: params[:elastic].try(:[], :search) }, label: false, class: 'form-control'
       = f.input :alphabetically, label: 'Alphabétique', as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :alphabetically)) }
       = f.input :most_popular, label: 'Plus populaire', as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :most_popular)) }
@@ -48,10 +46,11 @@
       = f.input :this_week, label: 'Cette semaine', as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :this_week)) }
       = f.input :today, label: "Aujourd'hui", as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :today)) }
       = button_tag(type: 'submit', class: 'btn btn-block btn-default') do
-            i.glyphicon.glyphicon-search
-            '  Rechercher
+        i.glyphicon.glyphicon-search
+        '  Rechercher
       = link_to 'Supprimer les filtres', request.path, class: 'btn btn-block btn-danger'
-  .col-md-10.ptl
+
+  .col-md-10
     - @documents.with_details.each do |document, details|
       = render document, details: details
 
