@@ -6,7 +6,7 @@
 h1= @tag.title
 
 - if can? :destroy, Tag.new
-  = link_to 'Supprimer', @tag, method: :delete, confirm: 'Etes-vous sûr ?'
+  = link_to 'Supprimer', @tag, method: :delete, confirm: 'Etes-vous sûr ?', class: 'btn btn-danger'
 
 h3= "Ce tag est utilisé dans #{pluralize(@tag.documents.count, 'document', 'documents')}"
 

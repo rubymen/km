@@ -16,5 +16,6 @@
   = f.input :town
   = f.input :phone
   = f.input :birthdate
-  = f.input :type, collection: { 'Administrateur' => 'Users::Admin', 'Contributeur' => 'Users::Contributor', 'Membre' => 'Users::Member' }
+  - if current_user.type == 'Users::Admin'
+    = f.input :type, collection: { 'Administrateur' => 'Users::Admin', 'Contributeur' => 'Users::Contributor', 'Membre' => 'Users::Member' }
   = f.button :submit, 'Valider', class: 'btn-success mtl'

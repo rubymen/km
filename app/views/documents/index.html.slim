@@ -45,7 +45,7 @@
       = f.input :this_month, label: 'Ce mois', as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :this_month)) }
       = f.input :this_week, label: 'Cette semaine', as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :this_week)) }
       = f.input :today, label: "Aujourd'hui", as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :today)) }
-      = button_tag(type: 'submit', class: 'btn btn-block btn-default') do
+      = button_tag(type: 'submit', class: 'btn btn-block btn-default', data: { intro: 'Rechercher par mots-clefs, contenu ou utilisateur', position: 'right' }) do
         i.glyphicon.glyphicon-search
         '  Rechercher
       = link_to 'Supprimer les filtres', request.path, class: 'btn btn-block btn-danger'

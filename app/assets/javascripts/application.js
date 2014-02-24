@@ -4,3 +4,4 @@
 //= require typeahead.jquery
 //= require javascript
 //= require bootstrap
+//= require chardinjs
