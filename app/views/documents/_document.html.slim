@@ -4,7 +4,7 @@
       h4.mtn.mbs= raw(details.try(:[], :highlight).try(:[], :title) || document.title)
       = render 'documents/contributors', document: document
 
-      .mtm data-intro='Créer votre document, Rechercher par mots-clefs ou contenu' data-position='right'
+      .mtm
         - document.tags.each do |tag|
           a.label.label-default href=(tag_path tag)
             = tag.title
