@@ -19,4 +19,4 @@
         .modal-footer
           button.btn.btn-default data-dismiss='modal' type='button' OK
 
-= link_to document.users.map(&:name).sentencize(limit: 1), '#', role: 'button', data: { target: "#modal-#{document.id}", toggle: 'modal' }
+= link_to document.users.map(&:name).sentencize(limit: 1), '#', role: 'button', data: { target: "#modal-#{document.id}", toggle: 'modal', intro: 'Contributeurs du document', position: 'right' }
