@@ -1,1 +1,30 @@
-= @user.firstname
+- title @user.name
+- description 'Fiche de : ' + @user.name
+- set_meta_tags og: { title: 'Fiche de : ' + @user.name, url: user_url(@user) }
+- set_meta_tags keywords: "#{@user.name}, #{@user.firstname}, #{@user.lastname}, #{@user.email}, " + keywords
+
+.page-header
+  h1
+    = image_tag(@user.avatar.thumb, class: 'mrm')
+    = "#{@user.name}"
+    small.mlm
+      = link_to "(#{@user.email})", "mailto:#{@user.email}"
+
+.row
+  .col-md-12.mtl
+    - if can? :update, @user
+      h4 Actions de gestion
+      = link_to 'Editer', edit_user_path(@user), class: 'btn btn-info'
+    - if can? :destroy, @user
+      = link_to 'Supprimer', @user, method: :delete, class: 'btn btn-danger mlm', confirm: 'Etes-vous sûr ?'
+
+.row.mtxl
+  .col-md-12
+    - if @user.documents.any?
+      h2 Tous les documents de cet utilisateur
+    - else
+      h2 Cet utilisateur n'a pas de documents publiés
+
+    .mtl
+      - @user.documents.each do |document|
+        = render document, details: nil

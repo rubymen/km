@@ -4,12 +4,24 @@ fr:
       timestamps: &timestamps
         created_at: 'Créé le'
         updated_at: 'Mis à jour le'
+      attachment:
+        <<: *timestamps
+        path: 'Lien'
+      comment:
+        <<: *timestamps
+        content: 'Contenu'
+        private: 'Privé'
+        title: 'Titre'
       document:
         <<: *timestamps
         content: 'Contenu'
         description: 'Description'
         state: 'État'
         title: 'Titre'
+        users: 'Utilisateurs'
+      tag:
+        <<: *timestamps
+        title: 'Libellé'
       user:
         <<: *timestamps
         birthdate: 'Date de naissance'

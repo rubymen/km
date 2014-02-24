@@ -1,0 +1,25 @@
+- unless comment.comment_id
+  .well id=(comment.id)
+    h4.mts= link_to "##{comment.id}", "##{comment.id}"
+    blockquote
+      = comment.content
+      small
+        = link_to comment.user.name, comment.user
+        - if can? :comment, @document
+          | &nbsp;-&nbsp;
+          = link_to "Répondre au commentaire", new_document_comment_comment_path(@document, comment)
+          | &nbsp;-&nbsp;
+          = link_to 'Supprimer', [@document, comment], method: :delete, confirm: 'Etes-vous sûr ?'
+
+  -comment.comments.each do |response|
+    .well.mll
+      blockquote
+        = response.content
+        small
+          = link_to response.user.name, response.user
+          | &nbsp; (en réponse à&nbsp;
+          = link_to "##{comment.id}", "##{comment.id}"
+          | )
+          - if can? :comment, @document
+            | &nbsp;-&nbsp;
+            = link_to 'Supprimer', [@document, response], method: :delete, confirm: 'Etes-vous sûr ?'

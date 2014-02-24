@@ -1,0 +1,9 @@
+fr:
+  validation:
+    create: 'Votre %{model} a bien été crée'
+    destroy: 'Votre %{model} a bien été supprimé'
+    reify: 'Votre %{model} a bien changé de version'
+    update: 'Votre %{model} a bien été mis à jour'
+    zip:
+      fail: 'Vous ne pouvez pas télécharger le ZIP de ce document'
+      success: 'Le fichier ZIP est en cours de téléchargement'

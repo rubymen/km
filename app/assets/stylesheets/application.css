@@ -1,5 +1,8 @@
 /*
  *= require bootstrap-sass
- *= require main
+ *= require main_css_classes/main
+ *= require typeahead.js-bootstrap
  *= require style
+ *= require sb-admin
+ *= require chardinjs
  */

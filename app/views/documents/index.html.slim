@@ -1,0 +1,57 @@
+- title 'Documents'
+- description 'Utilisateurs du Knowledge Manager'
+- set_meta_tags og: { title: 'Documents du Knowledge Manager', url: documents_url }
+- set_meta_tags keywords: keywords
+
+- content_for :scripts do
+  coffee:
+    documents = new Bloodhound(
+      datumTokenizer: (d) ->
+        d.tokens
+
+      queryTokenizer: Bloodhound.tokenizers.whitespace
+      remote: '/documents/autocomplete?query=%QUERY'
+    )
+
+    documents.initialize()
+
+    $('#elastic_search').typeahead null,
+      displayKey: 'title'
+      source: documents.ttAdapter()
+
+    $('form.elastic input[type=checkbox]').change ->
+      $('form.elastic').submit()
+
+.row
+  .col-md-12
+    h1
+      | Documents
+      | &nbsp;
+      small Tous les documents
+    ol.breadcrumb
+      li.active
+        i.fa.fa-dashboard
+        | Documents
+.row
+  .col-md-2
+    - if can? :create, Document.new
+      = link_to 'Créer un document', new_document_path, class: 'btn btn-block btn-success'
+    = simple_form_for :elastic, url: documents_path, method: :get do |f|
+      h3 Recherche
+      = f.input :search, as: :string, input_html: { value: params[:elastic].try(:[], :search) }, label: false, class: 'form-control'
+      = f.input :alphabetically, label: 'Alphabétique', as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :alphabetically)) }
+      = f.input :most_popular, label: 'Plus populaire', as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :most_popular)) }
+      = f.input :most_recent, label: 'Plus récent', as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :most_recent)) }
+      = f.input :this_month, label: 'Ce mois', as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :this_month)) }
+      = f.input :this_week, label: 'Cette semaine', as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :this_week)) }
+      = f.input :today, label: "Aujourd'hui", as: :boolean, input_html: { checked: to_b(params[:elastic].try(:[], :today)) }
+      = button_tag(type: 'submit', class: 'btn btn-block btn-default', data: { intro: 'Rechercher par mots-clefs, contenu ou utilisateur', position: 'right' }) do
+        i.glyphicon.glyphicon-search
+        '  Rechercher
+      = link_to 'Supprimer les filtres', request.path, class: 'btn btn-block btn-danger'
+
+  .col-md-10
+    - @documents.with_details.each do |document, details|
+      = render document, details: details
+
+    = will_paginate @documents, renderer: BootstrapPagination::Rails, class: 'pagination pagination-centered'

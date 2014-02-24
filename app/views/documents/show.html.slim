@@ -1,3 +1,94 @@
-h1= @document.title
+- title @document.title
+- description @document.description + ' créé par ' + @document.users.map(&:name).sentencize
+- set_meta_tags og: { title: @document.title, url: document_url(@document) }
+- set_meta_tags keywords: @document.title + ', ' + keywords
 
-= link_to 'Supprimer', @document, method: :delete, confirm: 'Etes-vous sûr ?'
+.row
+  .col-md-8
+    h1
+      = @document.title
+
+  .col-md-4
+    blockquote.blockquote-reverse.mtl.mbm
+      | Créé par
+      | &nbsp;
+      = render 'contributors', document: @document
+
+.row
+  .col-md-12
+    | État :&nbsp;
+    span.label.label-primary.mrxl= @document.human_state_name
+    | Tags :&nbsp;
+    - @document.tags.each do |tag|
+      a.label.label-default href=(tag_path tag)
+        = tag.title
+      | &nbsp;
+
+.row
+  .col-md-12.mtl
+    p.lead= @document.description
+
+    .mtxl.mbxl
+      = @document.content
+
+.row.mbxl
+  .col-md-12
+    = link_to 'Télécharger ce document', zip_document_path(@document), class: 'btn btn-lg btn-default'
+
+hr
+
+.row.mtxl
+  .col-md-6
+    - if can? :state, @document
+      h4 Changer l'état du document
+      - if @document.state == 'wip'
+        = link_to 'Demander une revue', state_document_path(@document, state: 'ask_for_review'), class: 'btn btn-warning mrm', confirm: 'Etes-vous sûr ?'
+      - if @document.state == 'in_review'
+        = link_to 'Valider', state_document_path(@document, state: 'validated'), class: 'btn btn-success mrm', confirm: 'Etes-vous sûr ?'
+        = link_to 'Refuser', state_document_path(@document, state: 'rejected'), class: 'btn btn-danger mrm', confirm: 'Etes-vous sûr ?'
+      - if @document.state == 'validate'
+        = link_to 'A travailler', state_document_path(@document, state: 'rejected'), class: 'btn btn-success mrm', confirm: 'Etes-vous sûr ?'
+        = link_to 'Archiver', state_document_path(@document, state: 'archived'), class: 'btn btn-primary mrm', confirm: 'Etes-vous sûr ?'
+
+  .col-md-6.text-right
+    - if can? :update, @document
+      h4 Travailler sur le document
+      = link_to 'Editer', edit_document_path(@document), class: 'btn btn-info'
+    - if can? :destroy, @document
+      = link_to 'Supprimer', @document, method: :delete, class: 'btn btn-danger mlm', confirm: 'Etes-vous sûr ?'
+
+.row.mtxl
+  .col-md-12
+    hr
+    h2 Commentaires
+    - if can? :comment, @document
+      = link_to 'Ajouter un commentaire', new_document_comment_path(@document), class: 'btn btn-success'
+
+    .mtl
+      = render @document.comments
+
+.row.mtxl
+  .col-md-12
+    hr
+    h2 Versions du document
+    #accordion.panel-group
+      - @document.versions.reverse.each do |document|
+        - if document = document.reify
+          .panel.panel-default
+            .panel-heading
+              h4.panel-title
+                a data-parent="#accordion" data-toggle="collapse" href=("#collapse#{document.version.id}")
+                  = "Version ##{document.version.id}"
+            .panel-collapse.collapse id=("collapse#{document.version.id}")
+              a.list-group-item href=(change_version_document_path(document.id, version: document.version.id))
+                h5= "(#{l(document.updated_at, format: :short)})"
+                hr
+                - unless document.version.changeset[:title].nil?
+                  h4.list-group-item-heading.mbl Changement du titre
+                  pre= Differ.diff_by_word(document.version.changeset[:title][1], document.version.changeset[:title][0]).format_as(:html).html_safe
+                - unless document.version.changeset[:description].nil?
+                  h4.list-group-item-heading.mbl Changement de la description
+                  pre= Differ.diff_by_word(document.version.changeset[:description][1], document.version.changeset[:description][0]).format_as(:html).html_safe
+                - unless document.version.changeset[:content].nil?
+                  h4.list-group-item-heading.mbl Changement du contenu
+                  pre= Differ.diff_by_word(document.version.changeset[:content][1], document.version.changeset[:content][0]).format_as(:html).html_safe

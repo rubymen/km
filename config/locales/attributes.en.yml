@@ -4,11 +4,23 @@ en:
       timestamps: &timestamps
         created_at: 'Created at'
         updated_at: 'Updated at'
+      attachment:
+        <<: *timestamps
+        path: 'Path'
+      comment:
+        <<: *timestamps
+        content: 'Content'
+        private: 'Private'
+        title: 'Title'
       document:
         <<: *timestamps
         content: 'Content'
         description: 'Description'
         state: 'State'
+        title: 'Title'
+        users: 'Users'
+      tag:
+        <<: *timestamps
         title: 'Title'
       user:
         <<: *timestamps

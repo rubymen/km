@@ -1,0 +1,5 @@
+= simple_form_for [@document, @comment] do |f|
+  = f.hidden_field :comment_id, value: params[:comment_id] || @comment.comment.try(:id)
+  = f.input :content
+  = f.input :private
+  = f.button :submit, 'Ajouter un commentaire', class: 'btn-success mtl'

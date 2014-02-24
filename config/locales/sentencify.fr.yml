@@ -1,0 +1,8 @@
+fr:
+  sentencify:
+    empty: 'Rien à afficher'
+    last_word_connector: ' et '
+    last_word_connector: ' et '
+    two_words_connector: ' et '
+    final_singular_connector: ' autre'
+    final_plural_connector: ' autres'

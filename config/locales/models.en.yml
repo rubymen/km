@@ -1,9 +1,18 @@
 en:
   activerecord:
     models:
+      attachement:
+        one: 'Attachment'
+        other: 'Attachments'
+      comment:
+        one: 'Comment'
+        other: 'Comments'
       document:
         one: 'Document'
         other: 'Documents'
+      tag:
+        one: 'Tag'
+        other: 'Tags'
       user:
         one: 'User'
         other: 'Users'
