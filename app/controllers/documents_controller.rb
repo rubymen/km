@@ -1,5 +1,5 @@
 class DocumentsController < ApplicationController
-  before_action :set_document, only: [:change_version, :state, :show, :edit, :update, :destroy]
+  before_action :set_document, only: [:change_version, :state, :show, :edit, :update, :destroy, :zip]
 
   def autocomplete
     render json: Document.search(params[:query], fields: [{ title: :text_start }], limit: 10)
@@ -74,6 +74,49 @@ class DocumentsController < ApplicationController
 
     @document.destroy
     redirect_to new_document_path, flash: { success: t('validation.destroy', model: @document.class.model_name.human.downcase) }
+  end
+
+  def zip
+    txt_file = File.new("#{@document.title}.txt", 'w+')
+    txt_file.puts(@document.title)
+    txt_file.puts('')
+    txt_file.puts(@document.description)
+    txt_file.puts('')
+    txt_file.puts(@document.content)
+    txt_file.rewind
+
+    if @document.attachments.any?
+      t = Tempfile.new("my-temp-filename-#{Time.now}")
+
+      Zip::ZipOutputStream.open(t.path) do |z|
+        @document.attachments.each do |attachment|
+          z.put_next_entry(@document.title + '/' + File.basename(attachment.path.path).to_s)
+          z.print IO.read(Dir.pwd + '/public' + attachment.path.to_s)
+        end
+
+        z.put_next_entry(@document.title + '.txt')
+        z.print IO.read(txt_file)
+      end
+
+      send_file t.path, type: 'application/zip',
+                        disposition: 'attachment',
+                        filename: "#{@document.title}.zip"
+      t.close
+    else
+      t = Tempfile.new("my-temp-filename-#{Time.now}")
+
+      Zip::ZipOutputStream.open(t.path) do |z|
+        z.put_next_entry(@document.title + '.txt')
+        z.print IO.read(txt_file)
+      end
+
+      send_file t.path, type: 'application/zip',
+                        disposition: 'attachment',
+                        filename: "#{@document.title}.zip"
+      t.close
+    end
+
+    File.delete(txt_file)
   end
 
 private

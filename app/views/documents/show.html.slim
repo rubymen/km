@@ -7,7 +7,6 @@
   .col-md-8
     h1
       = @document.title
-      span.label.label-primary.mlm= @document.human_state_name
 
   .col-md-4
     blockquote.blockquote-reverse.mtl.mbm
@@ -17,6 +16,9 @@
 
 .row
   .col-md-12
+    | État :&nbsp;
+    span.label.label-primary.mrxl= @document.human_state_name
+    | Tags :&nbsp;
     - @document.tags.each do |tag|
       a.label.label-default href=(tag_path tag)
         = tag.title
@@ -26,10 +28,16 @@
   .col-md-12.mtl
     p.lead= @document.description
 
-    .mtxl
+    .mtxl.mbxl
       = @document.content
 
-.row.mtl
+.row.mbxl
+  .col-md-12
+    = link_to 'Télécharger ce document', zip_document_path(@document), class: 'btn btn-lg btn-default'
+
+hr
+
+.row.mtxl
   .col-md-6
     - if can? :state, @document
       h4 Changer l'état du document
