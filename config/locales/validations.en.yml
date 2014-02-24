@@ -4,3 +4,6 @@ en:
     destroy: 'Your %{model} has been destroyed'
     reify: "Your %{model}'s version has successfully changed"
     update: 'Your %{model} has been updated'
+    zip:
+      fail: 'You cant download the zip for this document'
+      success: 'Currently downloading your zip'
