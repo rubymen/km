@@ -98,6 +98,18 @@ table.tablesorter thead tr th:hover {
   background-color: #ccc;
 }
 
+.no-decoration:hover {
+    text-decoration: none;
+}
+
+.color-brown p {
+  color: #8a6d3b;
+}
+
+.color-red p {
+  color: #a94442;
+}
+
 /* Edit Below to Customize Widths > 768px */
 @media (min-width:768px) {
 

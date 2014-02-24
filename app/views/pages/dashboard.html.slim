@@ -1,0 +1,73 @@
+- title 'Dashboard'
+
+- @documents = Document.all
+- @tags = Tag.all
+- @users = User.all
+
+.row
+  .col-md-12
+    h1
+      | Dashboard
+      | &nbsp;
+      small Statistiques du Knowledge Manager
+    ol.breadcrumb
+      li.active
+        i.fa.fa-dashboard
+        | Dashboard
+
+.row
+  .col-lg-4
+    .panel.panel-info
+      .panel-heading
+        .row
+          = link_to documents_path, class: 'col-xs-12 no-decoration'
+            p.announcement-heading= pluralize(@documents.count, 'document')
+            p.announcement-text au total
+
+  .col-lg-4
+    .panel.panel-warning
+      .panel-heading
+        .row
+          = link_to documents_path, class: 'col-xs-12 no-decoration color-brown'
+            p.announcement-heading= pluralize(@tags.count, 'tag')
+            p.announcement-text au total
+
+  .col-lg-4
+    .panel.panel-danger
+      .panel-heading
+        .row
+          = link_to users_path, class: 'col-xs-12 no-decoration color-red'
+            p.announcement-heading= pluralize(@users.count, 'utilisateur')
+            p.announcement-text au total
+
+.row
+  .col-md-2
+    h2 Documents
+    = pluralize(@documents.count, 'document')
+
+  .col-md-10
+    = javascript_include_tag '//www.google.com/jsapi', 'chartkick'
+    = line_chart @documents.order(:created_at).group('DATE(created_at)').count
+
+.row
+  .col-md-2
+    h2 Utilisateurs
+    = pluralize(@users.count, 'utilisateur')
+    ul.mtl
+      li
+        = pluralize(@users.group(:type).count['Users::Admin'], 'administrateur')
+      li
+        = pluralize(@users.group(:type).count['Users::Contributor'], 'contributeur')
+      li
+        = pluralize(@users.group(:type).count['Users::Member'], 'membre')
+
+  .col-md-10
+    = line_chart @users.order(:created_at).group('DATE(created_at)').count
+
+.row
+  .col-md-2
+    h2 Les tags les plus utilisés
+    = pluralize(@tags.count, 'tag')
+
+  .col-md-10
+    = pie_chart DocumentsTags.all.group('tag').count
