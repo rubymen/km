@@ -1,2 +1,22 @@
-- document.users.each do |user|
-  = link_to user.name, user
+- content_for :scripts do
+  .modal.fade aria-hidden='true' role='dialog' tabindex='-1' id="modal-#{document.id}"
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close aria-hidden='true' data-dismiss='modal' type='button'
+          h4.modal-title Liste des utilisateurs
+        .modal-body
+          table.table-hover.table-condensed.max-width
+            tr
+              th Prénom
+              th Nom
+              th
+            - document.users.each do |user|
+              tr
+                td= user.firstname
+                td= user.lastname
+                td.text-right= link_to 'Voir le profil', user, class: 'btn btn-default btn-xs'
+        .modal-footer
+          button.btn.btn-default data-dismiss='modal' type='button' OK
+
+= link_to document.users.map(&:name).sentencize(limit: 1), '#', role: 'button', data: { target: "#modal-#{document.id}", toggle: 'modal' }

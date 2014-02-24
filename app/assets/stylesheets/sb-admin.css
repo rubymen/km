@@ -1,30 +1,10 @@
-/*
-Author: Start Bootstrap - http://startbootstrap.com
-'SB Admin' HTML Template by Start Bootstrap
-
-All Start Bootstrap themes are licensed under Apache 2.0.
-For more info and more free Bootstrap 3 HTML themes, visit http://startbootstrap.com!
-*/
-
-/* ATTN: This is mobile first CSS - to update 786px and up screen width use the media query near the bottom of the document! */
-
-/* Global Styles */
-
-@font-face {
-  font-family: 'Open Sans Light';
-  src: url('//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Light-webfont.eot');
-  src: url('//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Light-webfont.eot?#iefix') format('embedded-opentype'), url('//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Light-webfont.woff') format('woff'), url('//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Light-webfont.ttf') format('truetype'), url('//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Light-webfont.svg#OpenSansLight') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
 body {
   margin-top: 50px;
-  font-family: "Open Sans Light";
+  font-family: 'Open Sans';
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: "Open Sans Light";
+  font-family: 'Open Sans';
 }
 
 #wrapper {

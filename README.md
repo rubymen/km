@@ -6,6 +6,7 @@
 
 ```rb
 cd config && cp database.yml{.sample,} && cd -
+git submodule init && git submodule update
 ```
 
 ## Regenerate database
