@@ -4,7 +4,7 @@ namespace :db do
     Rake::Task['db:reset'].invoke
 
     admin = User.create!( birthdate:              '1993-12-10',
-                          country_code:           '33',
+                          country_code:           'France',
                           email:                  'admin@epnet.fr',
                           firstname:              'admin',
                           lastname:               'nimda',
@@ -16,7 +16,7 @@ namespace :db do
                           type:                   'Users::Admin')
 
     contributor = User.create!( birthdate:              '1994-10-01',
-                                country_code:           '33',
+                                country_code:           'France',
                                 email:                  'contributor@epnet.fr',
                                 firstname:              'contributor',
                                 lastname:               'rotubirtnoc',
@@ -28,7 +28,7 @@ namespace :db do
                                 type:                   'Users::Contributor')
 
     member = User.create!(birthdate:              '1992-12-10',
-                          country_code:           '33',
+                          country_code:           'France',
                           email:                  'member@epnet.fr',
                           firstname:              'member',
                           lastname:               'rebmem',
