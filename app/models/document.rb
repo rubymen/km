@@ -29,8 +29,8 @@ class Document < ActiveRecord::Base
   end
 
   has_and_belongs_to_many :users
-  has_many :attachments, dependent: :destroy
-  has_many :comments, dependent: :destroy
+  has_many :attachments
+  has_many :comments
   has_and_belongs_to_many :tags
 
   accepts_nested_attributes_for :attachments, reject_if: ->(a) { a[:path].blank? }, allow_destroy: true

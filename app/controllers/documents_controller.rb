@@ -8,9 +8,12 @@ class DocumentsController < ApplicationController
   def change_version
     authorize! :update, @document
 
+    tags  = @document.tags.each { |t| t }
     users = @document.users.each { |u| u }
+
     @document.destroy
     @document = PaperTrail::Version.find(params[:version]).reify
+    @document.tags << tags
     @document.users << users
     @document.save
     redirect_to @document, flash: { success: t('validation.reify', model: @document.class.model_name.human.downcase) }
