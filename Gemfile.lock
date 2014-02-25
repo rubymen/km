@@ -86,6 +86,7 @@ GEM
     friendly_id (5.0.3)
       activerecord (>= 4.0.0)
     hashr (0.0.22)
+    high_voltage (2.1.0)
     highline (1.6.20)
     hike (1.2.3)
     httpclient (2.3.4.1)
@@ -265,6 +266,7 @@ DEPENDENCIES
   factory_girl_rails
   forgery
   friendly_id (~> 5.0.0)
+  high_voltage
   impressionist (~> 1.5.1)
   jquery-rails
   meta-tags

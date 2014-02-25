@@ -13,7 +13,9 @@ namespace :db do
                           phone:                  '0606060606',
                           street:                 '4, rue Jules Guesdes',
                           town:                   'Lille',
-                          type:                   'Users::Admin')
+                          type:                   'Users::Admin',
+                          created_at:             1.week.ago,
+                          updated_at:             1.week.ago)
 
     contributor = User.create!( birthdate:              '1994-10-01',
                                 country_code:           'France',
@@ -45,7 +47,26 @@ namespace :db do
 
     document2 = contributor.documents.create!(title:        'Mon second document',
                                               description:  'Une longue description du second document par ce qu\'il est vraiment super génial et qu\'il faut tester la taille de notre contenu.',
-                                              content:      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vestibulum nulla ligula, in interdum nisl mollis ut. Sed auctor nunc nec velit congue rutrum. Phasellus eu erat sed libero euismod malesuada. In sed sem viverra, interdum tellus eu, elementum turpis. Fusce elementum, odio sit amet consectetur vehicula, magna elit convallis sapien, a tincidunt tellus orci vitae nibh. Aenean cursus ligula id neque vehicula tincidunt. Aliquam quis molestie lorem, sed porta tortor. Duis elementum at felis vel semper. Vivamus interdum nisl ac arcu consectetur fermentum. Quisque id nunc lacus. Fusce tincidunt ac odio et cursus. Vestibulum id dui sit amet risus suscipit imperdiet ultrices id ligula. Nullam justo leo, rutrum at nisl interdum, ultricies rutrum mauris.')
+                                              content:      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vestibulum nulla ligula, in interdum nisl mollis ut. Sed auctor nunc nec velit congue rutrum. Phasellus eu erat sed libero euismod malesuada. In sed sem viverra, interdum tellus eu, elementum turpis. Fusce elementum, odio sit amet consectetur vehicula, magna elit convallis sapien, a tincidunt tellus orci vitae nibh. Aenean cursus ligula id neque vehicula tincidunt. Aliquam quis molestie lorem, sed porta tortor. Duis elementum at felis vel semper. Vivamus interdum nisl ac arcu consectetur fermentum. Quisque id nunc lacus. Fusce tincidunt ac odio et cursus. Vestibulum id dui sit amet risus suscipit imperdiet ultrices id ligula. Nullam justo leo, rutrum at nisl interdum, ultricies rutrum mauris.',
+                                              state:        'validate')
+
+    document3 = member.documents.create!( title:        'Mon troisième document',
+                                          description:  'Une longue description du second document par ce qu\'il est vraiment super génial et qu\'il faut tester la taille de notre contenu.',
+                                          content:      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vestibulum nulla ligula, in interdum nisl mollis ut. Sed auctor nunc nec velit congue rutrum. Phasellus eu erat sed libero euismod malesuada. In sed sem viverra, interdum tellus eu, elementum turpis. Fusce elementum, odio sit amet consectetur vehicula, magna elit convallis sapien, a tincidunt tellus orci vitae nibh. Aenean cursus ligula id neque vehicula tincidunt. Aliquam quis molestie lorem, sed porta tortor. Duis elementum at felis vel semper. Vivamus interdum nisl ac arcu consectetur fermentum. Quisque id nunc lacus. Fusce tincidunt ac odio et cursus. Vestibulum id dui sit amet risus suscipit imperdiet ultrices id ligula. Nullam justo leo, rutrum at nisl interdum, ultricies rutrum mauris.',
+                                          created_at:   1.day.ago,
+                                          updated_at:   1.day.ago)
+
+    document4 = contributor.documents.create!(title:        'Mon quatrième document',
+                                              description:  'Une longue description du second document par ce qu\'il est vraiment super génial et qu\'il faut tester la taille de notre contenu.',
+                                              content:      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vestibulum nulla ligula, in interdum nisl mollis ut. Sed auctor nunc nec velit congue rutrum. Phasellus eu erat sed libero euismod malesuada. In sed sem viverra, interdum tellus eu, elementum turpis. Fusce elementum, odio sit amet consectetur vehicula, magna elit convallis sapien, a tincidunt tellus orci vitae nibh. Aenean cursus ligula id neque vehicula tincidunt. Aliquam quis molestie lorem, sed porta tortor. Duis elementum at felis vel semper. Vivamus interdum nisl ac arcu consectetur fermentum. Quisque id nunc lacus. Fusce tincidunt ac odio et cursus. Vestibulum id dui sit amet risus suscipit imperdiet ultrices id ligula. Nullam justo leo, rutrum at nisl interdum, ultricies rutrum mauris.',
+                                              created_at:   2.days.ago,
+                                              updated_at:   2.days.ago)
+
+    document5 = admin.documents.create!(title:        'Mon cinquième document',
+                                        description:  'Une longue description du second document par ce qu\'il est vraiment super génial et qu\'il faut tester la taille de notre contenu.',
+                                        content:      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vestibulum nulla ligula, in interdum nisl mollis ut. Sed auctor nunc nec velit congue rutrum. Phasellus eu erat sed libero euismod malesuada. In sed sem viverra, interdum tellus eu, elementum turpis. Fusce elementum, odio sit amet consectetur vehicula, magna elit convallis sapien, a tincidunt tellus orci vitae nibh. Aenean cursus ligula id neque vehicula tincidunt. Aliquam quis molestie lorem, sed porta tortor. Duis elementum at felis vel semper. Vivamus interdum nisl ac arcu consectetur fermentum. Quisque id nunc lacus. Fusce tincidunt ac odio et cursus. Vestibulum id dui sit amet risus suscipit imperdiet ultrices id ligula. Nullam justo leo, rutrum at nisl interdum, ultricies rutrum mauris.',
+                                        created_at:   1.week.ago,
+                                        updated_at:   1.week.ago)
 
     comment1 = Comment.create!( content:      'Ce document est génial !',
                                 document_id:  document1.id,
