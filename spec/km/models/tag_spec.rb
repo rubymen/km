@@ -17,7 +17,7 @@ describe Tag do
     end
   end
 
-  describe '.to_s' do
+  describe '#to_s' do
     it 'returns the title' do
       expect(tag.to_s).to eq(tag.title)
     end
