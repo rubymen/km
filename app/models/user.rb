@@ -33,14 +33,15 @@ class User < ActiveRecord::Base
             presence: true
 
   validates :phone,
-            format: { with: /((\+|00)33\s?|0)[679](\s?\d{2}){4}/ },
+            format: { with: /((\+|00)33\s?|0)[3679](\s?\d{2}){4}/ },
             allow_blank: true
 
   validates :type,
             presence: true
 
   validates_date :birthdate,
-                 allow_blank: true
+                 allow_blank: true,
+                 on_or_before: -> { Date.current }
 
   def name
     "#{firstname} #{lastname}"
