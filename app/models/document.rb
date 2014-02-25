@@ -28,7 +28,7 @@ class Document < ActiveRecord::Base
     end
   end
 
-  has_and_belongs_to_many :users
+  has_and_belongs_to_many :users, uniq: true
   has_many :attachments
   has_many :comments
   has_and_belongs_to_many :tags
