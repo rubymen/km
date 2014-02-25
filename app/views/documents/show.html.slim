@@ -31,6 +31,12 @@
     .mtxl.mbxl
       = @document.content
 
+    - if @document.attachments.any?
+      .mtxl.mbxl
+        | Pièces jointes :
+        - @document.attachments.each do |attachment|
+          = link_to File.basename(attachment.path.path), attachment.path.url, class: 'btn btn-default mlm', target: '_blank'
+
 .row.mbxl
   .col-md-12
     = link_to 'Télécharger ce document', zip_document_path(@document), class: 'btn btn-lg btn-default'
