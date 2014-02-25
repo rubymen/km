@@ -2,6 +2,14 @@ Tabulous.setup do
 
   tabs do
 
+    dashboard_tab do
+      text          { '<i class="glyphicon glyphicon-dashboard"></i> Dashboard' }
+      link_path     { dashboard_path }
+      visible_when  { current_user.type == 'Users::Admin' }
+      enabled_when  { true }
+      active_when   { in_action('any').of_controller('high_voltage/pages') }
+    end
+
     documents_tab do
       text          { '<i class="glyphicon glyphicon-file"></i> Documents' }
       link_path     { documents_path }
