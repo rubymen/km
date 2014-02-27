@@ -1,13 +1,15 @@
 module ApplicationHelper
+  require 'file/find'
+
   def app_size
     total = 0
-    Find.find('.').each { |f| total += File.stat(f).size }
+    File::Find.new(path: './public/uploads', follow: false).find { |f| total += File.stat(f).size }
     total = total / 1024 / 1024
   end
 
   def app_number_files
     total_files = []
-    Find.find('./public/uploads').each { |f| total_files << f }
+    File::Find.new(path: './public/uploads', follow: false).find { |f| total_files << f }
     total_files.length
   end
 
