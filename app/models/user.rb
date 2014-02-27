@@ -83,4 +83,6 @@ class User < ActiveRecord::Base
 
     self.search (params[:elastic].try(:[], :search) || '*'), custom_search
   end
+
+  scope :current_online, -> { where('current_sign_in_at > ?', 10.minutes.ago) }
 end
