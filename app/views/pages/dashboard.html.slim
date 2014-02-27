@@ -4,6 +4,8 @@
 - @tags = Tag.all
 - @users = User.all
 
+= javascript_include_tag '//www.google.com/jsapi', 'chartkick'
+
 .row
   .col-md-12
     h1
@@ -41,12 +43,20 @@
             p.announcement-text au total
 
 .row
+  .col-lg-6
+    h2.mbxl Serveur
+    p.lead= "#{(app_size > 1024) ? (app_size / 1024).to_s + ' Go' : app_size.to_s + ' Mo'} d'espace disque utilisé et #{(server_size > 1024) ? (server_size / 1024).to_s + ' Go' : server_size.to_s + ' Mo'} disponibles."
+    p.lead= "Actuellement #{app_number_files} fichiers téléchargés sur le serveur."
+    p.lead= "Il y a #{pluralize(User.current_online.count, 'utilisateur')} en ligne en ce moment."
+  .col-lg-6
+    = pie_chart({ 'Espace occupé (Mo)' => app_size, 'Espace libre (Mo)' => server_size })
+
+.row
   .col-md-2
     h2 Documents
     = pluralize(@documents.count, 'document')
 
   .col-md-10
-    = javascript_include_tag '//www.google.com/jsapi', 'chartkick'
     = line_chart @documents.order(:created_at).group('DATE(created_at)').count
 
 .row
