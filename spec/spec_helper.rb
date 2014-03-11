@@ -18,3 +18,7 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.order = 'random'
 end
+
+class ActionController::TestCase
+  include Devise::TestHelpers
+end
