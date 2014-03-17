@@ -7,4 +7,8 @@ class Comment < ActiveRecord::Base
 
   validates :content,
             presence: true
+
+  def readable?
+    !private?
+  end
 end
