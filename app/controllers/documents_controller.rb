@@ -45,7 +45,7 @@ class DocumentsController < ApplicationController
   end
 
   def create
-    @document = current_user.documents.build document_params
+    @document = Document.new document_params
     @document.users << current_user
     authorize! :create, @document
 
@@ -83,9 +83,9 @@ class DocumentsController < ApplicationController
 
   def zip
     txt_file = File.new("#{@document.title}.txt", 'w+')
-    txt_file.puts(@document.title)
+    txt_file.puts('# ' + @document.title)
     txt_file.puts('')
-    txt_file.puts(@document.description)
+    txt_file.puts('## ' + @document.description)
     txt_file.puts('')
     txt_file.puts(@document.content)
     txt_file.rewind
