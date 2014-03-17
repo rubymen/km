@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'controller_helper'
 require 'factory_girl'
 
 describe DocumentsController, type: :controller, versioning: true do

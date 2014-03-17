@@ -3,6 +3,7 @@ Coveralls.wear!
 
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
+require "#{::Rails.root}/app/helpers/application_helper"
 require 'database_cleaner'
 require 'factory_girl_rails'
 require 'rspec/rails'
@@ -17,8 +18,14 @@ RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.use_transactional_fixtures = true
   config.order = 'random'
-end
 
-class ActionController::TestCase
-  include Devise::TestHelpers
+  config.include ApplicationHelper, type: :helper
+  config.include Devise::TestHelpers, type: :controller
+  config.before(:each) do
+    PaperTrail.enabled = false
+  end
+
+  config.before(:each, versioning: true) do
+    PaperTrail.enabled = true
+  end
 end
