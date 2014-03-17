@@ -10,7 +10,7 @@ describe DocumentsController, type: :controller, versioning: true do
     sign_in FactoryGirl.create(:user, firstname: 'admin', lastname: 'nimda', type: 'Users::Admin')
   end
 
-  describe 'POST #change_version' do
+  describe 'GET #change_version' do
     let(:attr) { FactoryGirl.attributes_for(:document_with_user) }
 
     let(:subject_before_changes) { subject }
@@ -33,6 +33,17 @@ describe DocumentsController, type: :controller, versioning: true do
 
     it 'change the version of the document' do
       expect(subject).to eq(subject_before_changes)
+    end
+
+    it 'redirects to the document' do
+      expect(response).to redirect_to(document_path(subject))
+    end
+  end
+
+  describe 'GET #state' do
+    it 'should redirect to the document' do
+      get :state, state: 'wip', id: subject.id
+      expect(response).to redirect_to(document_path(subject))
     end
   end
 
@@ -57,6 +68,20 @@ describe DocumentsController, type: :controller, versioning: true do
 
     it 'render the #show view' do
       expect(response).to render_template(:show)
+    end
+  end
+
+  describe 'GET #new' do
+    before(:each) do
+      get :new
+    end
+
+    it 'assigns a new document to @document' do
+      expect(assigns(:document)).to be_a(Document)
+    end
+
+    it 'render the #edit view' do
+      expect(response).to render_template(:new)
     end
   end
 
@@ -167,6 +192,19 @@ describe DocumentsController, type: :controller, versioning: true do
     it "redirects to the new document's form" do
       delete :destroy, id: document_deleted
       expect(response).to redirect_to(new_document_path)
+    end
+  end
+
+  describe 'GET #zip' do
+    before(:each) do
+      t = Tempfile.new("my-temp-filename-#{Time.now}")
+      controller.stub(:send_file) { t }
+      controller.stub(:render)
+    end
+
+    it 'should not have a body' do
+      get :zip, id: subject
+      expect(response.body).to eq('')
     end
   end
 end

@@ -25,6 +25,20 @@ describe CommentsController, type: :controller do
     end
   end
 
+  describe 'GET #new' do
+    before(:each) do
+      get :new, document_id: document.id
+    end
+
+    it 'assigns a new comment to @comment' do
+      expect(assigns(:comment)).to be_a(Comment)
+    end
+
+    it 'render the #edit view' do
+      expect(response).to render_template(:new)
+    end
+  end
+
   describe 'POST #create' do
     context 'with valid attributes' do
       it 'creates a new comment' do

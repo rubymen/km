@@ -38,6 +38,20 @@ describe TagsController, type: :controller do
     end
   end
 
+  describe 'GET #new' do
+    before(:each) do
+      get :new
+    end
+
+    it 'assigns a new tag to @tag' do
+      expect(assigns(:tag)).to be_a(Tag)
+    end
+
+    it 'render the #edit view' do
+      expect(response).to render_template(:new)
+    end
+  end
+
   describe 'POST #create' do
     context 'with valid attributes' do
       before(:each) do
