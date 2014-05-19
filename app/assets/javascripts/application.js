@@ -5,3 +5,4 @@
 //= require javascript
 //= require bootstrap
 //= require chardinjs
+//= require gremlins
