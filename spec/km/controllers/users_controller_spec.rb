@@ -34,6 +34,20 @@ describe UsersController, type: :controller do
     end
   end
 
+  describe 'GET #new' do
+    before(:each) do
+      get :new
+    end
+
+    it 'assigns a new user to @user' do
+      expect(assigns(:user)).to be_a(User)
+    end
+
+    it 'render the #edit view' do
+      expect(response).to render_template(:new)
+    end
+  end
+
   describe 'POST #create' do
     context 'with valid attributes' do
       it 'creates a new user' do
