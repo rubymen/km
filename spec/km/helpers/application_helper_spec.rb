@@ -13,4 +13,10 @@ describe ApplicationHelper, type: :helper do
       end
     end
   end
+
+  describe '#keywords' do
+    it 'should returns the good keywords' do
+      expect(keywords).to eq('documents, milicon, knowledge, management, manager, km, knowledge management, knowledge-management, knowledgemanagement, rubymen, ruby on rails, document, tag')
+    end
+  end
 end
