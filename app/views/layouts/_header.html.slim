@@ -1,30 +1,67 @@
-nav.navbar.navbar-inverse.navbar-fixed-top role='navigation'
-  .navbar-header
-    button.navbar-toggle data-target='.navbar-ex1-collapse' data-toggle='collapse' type='button'
-      span.sr-only Toggle navigation
-      span.icon-bar
-      span.icon-bar
-      span.icon-bar
-    = link_to image_tag('favicon.png') + ' Knowledge Manager', root_path, class: 'navbar-brand', data: { intro: "Retour à l'accueil", position: 'bottom' }
-
-  .collapse.navbar-collapse.navbar-ex1-collapse
-    .side-nav
-      = tabs
-    ul.nav.navbar-nav.navbar-right.navbar-user
-      - unless user_signed_in?
+aside#sidebar.nano
+  .nano-content
+    .logo-container
+      span.logo.glyphicon.glyphicon-envelope
+      | Mail
+    a.compose-button Compose
+    menu.menu-segment
+      ul
+        li.active
+          a href="#"
+            | Inbox
+            span (43)
         li
-          = link_to 'Connexion', new_user_session_path
-      - else
-        li.dropdown.user-dropdown data-intro='Accéder à votre compte' data-position='bottom'
-          a.dropdown-toggle data-toggle='dropdown' href='#'
-            i.glyphicon.glyphicon-user
-            | &nbsp; &nbsp;
-            = current_user.name
-            | &nbsp;
-          ul.dropdown-menu
-            li
-              = link_to "Tour d'horizon", '#', id: 'toogle_chardin'
-            li
-              = link_to 'Modifier mon compte', current_user
-            li
-              = link_to 'Déconnexion', destroy_user_session_path, method: :delete
+          a href="#"  Important
+        li
+          a href="#"  Sent
+        li
+          a href="#"  Drafts
+        li
+          a href="#"  Trash
+    .separator
+    .menu-segment
+      ul.labels
+        li.title
+          | Labels
+          span.icon +
+        li
+          a href="#"
+            | Dribbble
+            span.ball.pink
+        li
+          a href="#"
+            | Roommates
+            span.ball.green
+        li
+          a href="#"
+            | Bills
+            span.ball.blue
+    .separator
+    .menu-segment
+      ul.chat
+        li.title
+          | Chat
+          span.icon +
+        li
+          a href="#"
+            span.ball.green
+            | Laura Turner
+        li
+          a href="#"
+            span.ball.green
+            | Kevin Jones
+        li
+          a href="#"
+            span.ball.blue
+            | John King
+        li
+          a href="#"
+            span.ball.blue
+            | Jenny Parker
+        li
+          a href="#"
+            span.ball.blue
+            | Paul Green
+        li
+          a.italic-link href="#"  See offline list
+    .bottom-padding

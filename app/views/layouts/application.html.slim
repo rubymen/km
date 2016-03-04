@@ -8,6 +8,7 @@ head
   = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Open+Sans:300,700', media: 'all'
   = stylesheet_link_tag 'application', media: 'all'
   = stylesheet_link_tag 'http://cdn.oesmith.co.uk/morris-0.4.3.min.css', media: 'all'
+  = stylesheet_link_tag 'http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css', media: 'all'
   = yield(:head)
   = csrf_meta_tags
 body
@@ -20,19 +21,19 @@ body
         - if flash[:warn] || flash[:alert]
           .alert.alert-danger.alert-dismissable
             button.close aria-hidden="true" data-dismiss="alert" type="button"
-            #{flash[:warn]} #{flash[:alert]}
+            = flash[:warn] || flash[:alert]
         - if flash[:notice] || flash[:success]
           .alert.alert-success.alert-dismissable
             button.close aria-hidden="true" data-dismiss="alert" type="button"
-            #{flash[:notice]} #{flash[:success]}
+            = flash[:notice] || flash[:success]
         - if flash[:info]
           .alert.alert-info.alert-dismissable
             button.close aria-hidden="true" data-dismiss="alert" type="button"
-            #{flash[:info]}
+            = flash[:info]
         - if flash[:error]
           .alert.alert-error.alert-dismissable
             button.close aria-hidden="true" data-dismiss="alert" type="button"
-            #{flash[:error]}
+            = flash[:error]
 
         #page-wrapper
           = yield
@@ -42,21 +43,21 @@ body
       - if flash[:warn] || flash[:alert]
         .alert.alert-danger.alert-dismissable
           button.close aria-hidden="true" data-dismiss="alert" type="button"
-          #{flash[:warn]} #{flash[:alert]}
+          = flash[:warn] || flash[:alert]
       - if flash[:notice] || flash[:success]
         .alert.alert-success.alert-dismissable
           button.close aria-hidden="true" data-dismiss="alert" type="button"
-          #{flash[:notice]} #{flash[:success]}
+          = flash[:notice] || flash[:success]
       - if flash[:info]
         .alert.alert-info.alert-dismissable
           button.close aria-hidden="true" data-dismiss="alert" type="button"
-          #{flash[:info]}
+          = flash[:info]
       - if flash[:error]
         .alert.alert-error.alert-dismissable
           button.close aria-hidden="true" data-dismiss="alert" type="button"
-          #{flash[:error]}
+          = flash[:error]
 
-      #page-wrapper
+      main#main
         = yield
 
   = javascript_include_tag 'application'
